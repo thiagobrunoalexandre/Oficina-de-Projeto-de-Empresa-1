@@ -1,0 +1,9 @@
+Declaração do Escopo
+SVE - Sistema de Vendas Eletrônico
+A Alge Comunicação Visual foi fundada em 2003 oferecendo diversos serviços gráficos como banners, folders e impressões em geral. Localizada atualmente dentro do Instituto de Psiquiatria do Hospital das Clínicas e com os principais clientes sendo alunos de graduação e pós-graduação da FMUSP, a Alge pretende expandir seus negócios alugando espaço para outro estabelecimento, assim atendendo outros públicos, gerando mais lucro para a empresa.
+
+Atualmente, as vendas são feitas de forma trivial, onde o cliente faz o pedido por e-mail ou telefone os funcionários devem anotar o mesmo no papel e verificar fisicamente se existe os produtos no estoque,dessa forma fica claro o pouco controle sobre o processo quando existem muitos pedidos.  
+
+A gráfica Alge tem a necessidade de controlar melhor suas vendas, ter uma identidade visual na internet e por fim, ter um bom marketing para continuar crescendo. Com maior detalhes, o cliente precisa poder visualizar seus produtos em estoque, gerenciar pedidos feitos tanto por telefone quanto pela internet, guardar informações dos clientes e gerar mais propagandas da empresa pela internet.
+
+A partir dessas necessidades do nosso cliente, produziremos um site que funcione como uma loja virtual integrada a um banco de dados para suprir tais requisitos. O objetivo é que qualquer cliente da Alge possa fazer um cadastro, fazer pedidos e escolher retirar na loja ou que seja entregue em domicílio. Já para os funcionários, eles devem ser capazes de recuperar as informações do banco de dados para prosseguirem da forma correta com o pedido.
