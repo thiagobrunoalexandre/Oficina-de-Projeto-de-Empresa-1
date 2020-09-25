@@ -14,7 +14,7 @@ namespace Alge.Models
     public class LoginModel
     {
        
-        public string ID { get; set; }
+        public int ID { get; set; }
 
         [Required(ErrorMessage = "Informe o Email")]
         [Display(Name = "Email")]

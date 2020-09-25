@@ -36,103 +36,49 @@ namespace Alge.Controllers
             return View();
         }
 
-        [ResponseCache(NoStore = true, Duration = 0)]
         [HttpPost]
-        public IActionResult Login(LoginRegisterModel model, string fr, string redirectUrl)
+        public IActionResult Login(LoginModel model)
         {
 
-            if (fr == "1") // LOGIN
+            if (ModelState.IsValid)
             {
 
-                var Validation = model.ValidateLogin();
-
-                if (Validation.valid)
+                if (model.Exist())
                 {
-                    model.Login();
-
-                    if (model.Login_SuccessFull)
+                    using (var db = new CallDB())
                     {
-                        AlgeCookieController.LoggedByAdmin = false;
-                        AlgeCookieController.UserEmail = model.Login_Email;
-                        AlgeCookieController.UserStatus = "logado";
-                        AlgeCookieController.UserID = model.ID;
+                        db.Connection.Open();
 
-
-
-
-
-                        if (String.IsNullOrEmpty(redirectUrl))
+                        var loginModel = new LoginQuery(db).GetLoginModel(model.Email, model.ToMD5Hash(model.Senha)).Result;
+                        if (loginModel != null)
                         {
+                            AlgeCookieController.LoggedByAdmin = false;
+                            AlgeCookieController.UserEmail = model.Email;
+                            AlgeCookieController.UserStatus = "logado";
+                            AlgeCookieController.UserID = model.ID;
                             return RedirectToAction("Index", "Home");
+
                         }
                         else
                         {
-                            return Redirect(redirectUrl);
+                            ViewBag.ErrorMessage = "Senha incorreta";
                         }
-                    }
-                    else
-                    {
-                        ViewBag.MessageLogin = "Email ou senha INCORRETO!";
-                        return View(model);
                     }
                 }
                 else
                 {
-                    ViewBag.MessageLogin = Validation.message;
-                    return View(model);
+
+                    ViewBag.ErrorMessage = "Usuário não encontrado";
                 }
+                return View(model);
             }
-            else if (fr == "2")//REGISTRO
+            else
             {
-                /*
-                var Validation = model.ValidateRegister();
-
-                if (Validation.valid)
-                {
-                    if (!UserProcedures.EmailExist(model.Register_Email))
-                    {
-                        try
-                        {
-                            UserProcedures.RegisterUser(model);
-                            UserCustomerCookieController.LoggedByAdmin = false;
-                            UserCustomerCookieController.UserEmail = model.Register_Email;
-                            UserCustomerCookieController.UserStatus = "logado";
-                            UserCustomerCookieController.UserID = model.ID;
-                            UserCustomerCookieController.ContributorEnabled = false;
-                            EmailProcedures.SendRegisterEmail(model.Register_Email, model.ID.ToString(), model.Register_Name);
-                        }
-                        catch (Exception e)
-                        {
-                            ViewBag.MessageRegister = "Ocorreu um erro ao tentar cadastrar, tente novamente ou entre em contato conosco";
-                            return View(model);
-                        }
-
-                    }
-                    else
-                    {
-                        ViewBag.MessageRegister = MainMessages.email_already_in_use;
-                        return View(model);
-                    }
-                }
-                else
-                {
-                    ViewBag.MessageRegister = Validation.message;
-                    return View(model);
-                }
-                //_IMPLEMENTAR_  SubscriptionCookieController.LoadSubscriptionsFromDB();
-                if (String.IsNullOrEmpty(redirectUrl))
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    return Redirect(redirectUrl);
-                }
-            }*/
-                return View();
+                return RedirectToAction("Index");
             }
-            return View();
+
         }
+
         public ActionResult LogOut()
         {
             AlgeCookieController.ClearSession();

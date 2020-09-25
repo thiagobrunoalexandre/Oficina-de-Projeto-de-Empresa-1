@@ -21,7 +21,7 @@ namespace Alge.DAO
         public async Task<bool> Exist(string email)
         {
             var cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = String.Format("SELECT * FROM `usuarios` WHERE `email` = '{0}'", email);
+            cmd.CommandText = String.Format("SELECT * FROM `usuario` WHERE `email` = '{0}'", email);
 
             try
             {
@@ -55,7 +55,7 @@ namespace Alge.DAO
         public async Task<LoginModel> GetLoginModel(string email,string passwordHsh)
         {
             var cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = String.Format("SELECT * FROM usuarios WHERE email = '{0}' AND password_hash = '{1}';",email,passwordHsh);
+            cmd.CommandText = String.Format("SELECT * FROM usuario WHERE email = '{0}' AND password_hash = '{1}';",email,passwordHsh);
             try
             {
                 DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -63,7 +63,7 @@ namespace Alge.DAO
                 await reader.ReadAsync();
                 var loginModel = new LoginModel();
 
-                loginModel.ID = Convert.ToString(reader[0]);
+                loginModel.ID = reader.GetInt32(0);
                 loginModel.Email = Convert.ToString(reader[1]);
                
            

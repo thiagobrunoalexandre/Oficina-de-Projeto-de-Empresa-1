@@ -1,94 +1,43 @@
-﻿@model LoginRegisterModel
+﻿@model LoginModel
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
-    ViewData["Title"] = "Login/Register";
-    bool NeedLogin = ViewBag.NeedLogin != null ? ViewBag.NeedLogin : false;
+    ViewData["Title"] = "Login";
 }
 @using Alge.Models
 
 @using (Html.BeginForm())
 {
-<div class="row content-margin">
 
-    @if (NeedLogin)
-    {
-        <div class="col-md-8 col-md-offset-2">
-            <div class="message-box" style="margin:2% 0% 2% 0%;">
-                <p class="global-text-title text-left login-register-title" style="margin:0px;">Ops, para continuar faça login ou cadastre-se :)</p>
-            </div>
-        </div>
-    }
-
-   
-        @using (Html.BeginForm("Login", "Home", new { fr = "1", redirectUrl = ViewBag.redirectUrl }, FormMethod.Post, false, new { @id = "login-form" }))
-        {
-            @Html.ValidationSummary(true)
-            <div class="col-md-4 col-md-offset-2">
-                <div class="form-box">
-                    <fieldset>
-                        <h3 class="login-register-title">Login</h3>
-                        <div class="form">
-                            <div class="form-group loginInputs">
-                                <div class="horizontal-form-division"></div>
-                                @Html.TextBoxFor(m => m.Login_Email, (String)ViewBag.EmailLogin, new { @class = "global-form-style", placeholder = "Email" })
-
-                                @Html.PasswordFor(m => m.Login_Password, new { @class = "global-form-style", placeholder = "SENHA"})
-
-                                <p class="validation-message">@ViewBag.MessageLogin</p>
-                             
-                                <p>
-                                    <input type="submit" value="Login" class="global-form-style" />
-                                </p>
-                            </div>
-                        </div>
-                    </fieldset>
+    <div class="card" id="tela-login">
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "error-message" })<br />
                 </div>
-            </div>
-        }
-    }
-    @using (Html.BeginForm("Login", "Home", new { fr = "2", redirectUrl = ViewBag.redirectUrl }, FormMethod.Post, false, new { @id = "register-form" }))
-    {
-        @Html.ValidationSummary(true)
-        <div class="col-md-4" style="margin-bottom:2%;">
-            <div class="form-box">
-                <fieldset>
-                    <h3 class="login-register-title">Cadastar</h3>
-                    <div class="form">
-                        <div class="form-group loginInputs">
-                            <div class="horizontal-form-division"></div>
-                            @Html.TextBoxFor(m => m.Register_Email, (String)ViewBag.EmailRegister, new { @class = "global-form-style", placeholder = "Email" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Senha)
+                    @Html.PasswordFor(m => m.Senha, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Senha, null, new { @class = "error-message" })<br />
+                </div>
 
-                            @Html.TextBoxFor(m => m.Register_Name, (String)ViewBag.Name, new { @class = "global-form-style", placeholder = "nome" })
-
-                            @Html.TextBoxFor(m => m.Register_LastName, (String)ViewBag.LastName, new { @class = "global-form-style", placeholder = "Sobre nome" })
-
-                            @Html.PasswordFor(m => m.Register_Password, new { @class = "global-form-style", placeholder = "SENHA" })
-
-                            @Html.PasswordFor(m => m.Register_ConfirmPassword, new { @class = "global-form-style", placeholder = "CONFIRME A SENHA " })
-
-                            @Html.TextBoxFor(m => m.Register_MobilePhone, null, new { @class = "global-form-style phone-number-mask", placeholder = "Telefone celular" })
-
-                            <p class="validation-message">@ViewBag.MessageRegister</p>
-
-
-
-                            <p>
-                                <input type="submit" value="Cadastar" class="global-form-style" />
-                            </p>
-
-
-                        </div>
+                <button type="submit" class="btn btn-primary float-right">Login</button>
+                @if (ViewBag.ErrorMessage != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @ViewBag.ErrorMessage
                     </div>
-                </fieldset>
-            </div>
+                }
+            </form>
         </div>
+    </div>
 
 
-    }
 
-</div>
-    <link href="~/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/css/site.css" rel="stylesheet">
+    <script src="~/node_modules/jquery/dist/jquery.js"></script>
+    <script src="~/node_modules/popper.js/dist/umd/popper.js"></script>
+    <script src="~/node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
 
 
