@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\git\\Oficina-de-Projeto-de-Empresa-1\\Alge\\Alge.csproj": {}
+    "C:\\Users\\maiko\\OneDrive\\Área de Trabalho\\Oficina-de-Projeto-de-Empresa-1\\Alge\\Alge.csproj": {}
   },
   "projects": {
-    "C:\\git\\Oficina-de-Projeto-de-Empresa-1\\Alge\\Alge.csproj": {
+    "C:\\Users\\maiko\\OneDrive\\Área de Trabalho\\Oficina-de-Projeto-de-Empresa-1\\Alge\\Alge.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\git\\Oficina-de-Projeto-de-Empresa-1\\Alge\\Alge.csproj",
+        "projectUniqueName": "C:\\Users\\maiko\\OneDrive\\Área de Trabalho\\Oficina-de-Projeto-de-Empresa-1\\Alge\\Alge.csproj",
         "projectName": "Alge",
-        "projectPath": "C:\\git\\Oficina-de-Projeto-de-Empresa-1\\Alge\\Alge.csproj",
-        "packagesPath": "C:\\Users\\Thiago Alexandre\\.nuget\\packages\\",
-        "outputPath": "C:\\git\\Oficina-de-Projeto-de-Empresa-1\\Alge\\obj\\",
+        "projectPath": "C:\\Users\\maiko\\OneDrive\\Área de Trabalho\\Oficina-de-Projeto-de-Empresa-1\\Alge\\Alge.csproj",
+        "packagesPath": "C:\\Users\\maiko\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\maiko\\OneDrive\\Área de Trabalho\\Oficina-de-Projeto-de-Empresa-1\\Alge\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Thiago Alexandre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maiko\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -110,7 +107,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
