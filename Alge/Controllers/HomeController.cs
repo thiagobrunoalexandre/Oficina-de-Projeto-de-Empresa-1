@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Alge.Models;
-using Alge.Performance;
+
 using Alge.DAO;
+using BancodeImagens.Procedures;
 
 namespace Alge.Controllers
 {
@@ -31,6 +32,15 @@ namespace Alge.Controllers
 
         }
 
+        public IActionResult Register()
+        {
+
+
+
+            return View();
+
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -47,7 +57,7 @@ namespace Alge.Controllers
                 {
                     using (var db = new CallDB())
                     {
-                        db.Connection.Open();
+                        db.conexao.Open();
 
                         var loginModel = new LoginQuery(db).GetLoginModel(model.Email, model.ToMD5Hash(model.Senha)).Result;
                         if (loginModel != null)
@@ -78,7 +88,47 @@ namespace Alge.Controllers
             }
 
         }
+        [HttpPost]
+        public IActionResult Register(RegisterModel model)
+        {
 
+           
+            var Validation = model.ValidateRegister();
+
+            if (Validation.valid)
+            {
+                if (!UserProcedures.EmailExist(model.Email))
+                {
+                    try
+                    {
+                        UserProcedures.RegisterUser(model);
+                        AlgeCookieController.LoggedByAdmin = false;
+                        AlgeCookieController.UserEmail = model.Email;
+                        AlgeCookieController.UserStatus = "logado";
+                        AlgeCookieController.UserID = model.ID;
+                       
+                        
+                    }
+                    catch (Exception e)
+                    {
+                        ViewBag.MessageRegister = "Ocorreu um erro ao tentar cadastrar, tente novamente ou entre em contato conosco";
+                        return View(model);
+                    }
+
+                }
+                else
+                {
+                    ViewBag.MessageRegister = "já existe um e-mail castrado";
+                    return View(model);
+                }
+            }
+            else
+            {
+                ViewBag.MessageRegister = Validation.message;
+                return View(model);
+            }
+            return RedirectToAction("Index");
+        }
         public ActionResult LogOut()
         {
             AlgeCookieController.ClearSession();

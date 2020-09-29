@@ -1,5 +1,5 @@
 ﻿using Alge.Models;
-using Alge.Performance;
+
 using MySql.Data.MySqlClient;
 
 using System;
@@ -20,7 +20,7 @@ namespace Alge.DAO
         }
         public async Task<bool> Exist(string email)
         {
-            var cmd = Db.Connection.CreateCommand();
+            var cmd = Db.conexao.CreateCommand();
             cmd.CommandText = String.Format("SELECT * FROM `usuario` WHERE `email` = '{0}'", email);
 
             try
@@ -36,13 +36,13 @@ namespace Alge.DAO
             }
             finally
             {
-                Db.Connection.Close();
+                Db.conexao.Close();
             }
         }
 
         public async Task<string> GetPasswordHash(string email)
         {
-            var cmd = Db.Connection.CreateCommand();
+            var cmd = Db.conexao.CreateCommand();
             cmd.CommandText = String.Format("SELECT Password_hash FROM `CorretoraUsuario` WHERE `Email` = '{0}'", email);
             DbDataReader reader = await cmd.ExecuteReaderAsync();
             reader.Read();
@@ -54,7 +54,7 @@ namespace Alge.DAO
 
         public async Task<LoginModel> GetLoginModel(string email,string passwordHsh)
         {
-            var cmd = Db.Connection.CreateCommand();
+            var cmd = Db.conexao.CreateCommand();
             cmd.CommandText = String.Format("SELECT * FROM usuario WHERE email = '{0}' AND password_hash = '{1}';",email,passwordHsh);
             try
             {
@@ -76,7 +76,7 @@ namespace Alge.DAO
             }
             finally
             {
-                Db.Connection.Close();
+                Db.conexao.Close();
 
             }
         }

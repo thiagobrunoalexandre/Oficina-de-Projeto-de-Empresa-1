@@ -3,12 +3,12 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
-namespace Alge.Performance
-{
+
+
     public class CallDB : IDisposable
     {
        
-        public MySqlConnection Connection;
+        public MySqlConnection conexao;
          
         public CallDB()
         {
@@ -19,7 +19,7 @@ namespace Alge.Performance
                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                    .Build();
 
-                Connection = new MySqlConnection(config.GetConnectionString("Alge_db"));
+                conexao = new MySqlConnection(config.GetConnectionString("Alge_db"));
             }
             catch (Exception e)
             {
@@ -40,23 +40,23 @@ namespace Alge.Performance
             {
                 connString = "ALge_DB";
             }
-           
-            Connection = new MySqlConnection(config.GetConnectionString(connString));
+
+            conexao = new MySqlConnection(config.GetConnectionString(connString));
         }
 
         public void Dispose()
         {
-            Connection.Close();
+            conexao.Close();
         }
-
-    }
-
     public enum DBSource
     {
         Alge_db,
-        
 
     }
+    }
 
-}
+
+   
+
+
 

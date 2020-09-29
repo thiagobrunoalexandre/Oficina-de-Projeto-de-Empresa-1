@@ -1,6 +1,6 @@
 ﻿
 using Alge.DAO;
-using Alge.Performance;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -34,7 +34,7 @@ namespace Alge.Models
 
             using (var db = new CallDB())
             {
-                db.Connection.OpenAsync();
+                db.conexao.OpenAsync();
                 
 
 
@@ -47,7 +47,7 @@ namespace Alge.Models
         {
             using (var db = new CallDB())
             {
-                db.Connection.Open();
+                db.conexao.Open();
                 var exist = new LoginQuery(db).Exist(this.Email);
 
                 return exist.Result;
