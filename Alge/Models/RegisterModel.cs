@@ -54,11 +54,15 @@ namespace Alge.Models
 
         
             bool name = !String.IsNullOrEmpty(this.Name);
-        
 
+            bool telefone  = !String.IsNullOrEmpty(this.MobilePhone);
             if (!email)
             {
                 return (email,"insira um email válido");
+            }
+            if (!telefone)
+            {
+                return (telefone, "insira um numero de telefone");
             }
             else if (!name)
             {
@@ -76,7 +80,7 @@ namespace Alge.Models
             
             
 
-            return ((name && email && password ),"true");
+            return ((name && email && password && telefone),"true");
         }
 
         

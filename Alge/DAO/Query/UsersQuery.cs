@@ -47,7 +47,39 @@ namespace Alge.DAO.Query
         }
 
 
+        public UserProfileModel GetProfile(int userID)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = ("SELECT * FROM usuario WHERE id_usuario = @id ;");
+            comm.Parameters.AddWithValue("@id", userID);
 
+            try
+            {
+                db.conexao.Open();
+                MySqlDataReader reader = comm.ExecuteReader();
+                List<UserProfileModel> listProfile = new List<UserProfileModel>();
+                reader.Read();
+
+                return new UserProfileModel
+                {
+                    Id = Convert.ToInt32(reader["id_usuario"]),
+                    Name = Convert.ToString(reader["nome"]),
+                    Email = Convert.ToString(reader["email"]),
+                    Phone = Convert.ToString(reader["telefone"]),
+                  
+                 
+                   
+                };
+            }
+            catch (Exception e)
+            {
+                return new UserProfileModel();
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+        }
 
 
 

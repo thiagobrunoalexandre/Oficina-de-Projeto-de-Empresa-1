@@ -52,11 +52,23 @@ namespace BancodeImagens.Procedures
             }
         }
 
-       
 
-       
+        public static UserProfileModel GetProfileModel(int userID)
+        {
+            using (CallDB db = new CallDB())
+            {
 
-       
+                var profile = new UsersQuery(db).GetProfile(userID);
+                if (profile == null)
+                {
+                    return new UserProfileModel();
+                }
+                return profile;
+            }
+        }
+
+
+
         public static Tuple<int, bool, string> VerifyRecoveryCode(string code)
         {
             int userID;

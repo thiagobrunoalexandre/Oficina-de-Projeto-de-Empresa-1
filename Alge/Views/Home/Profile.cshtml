@@ -1,0 +1,226 @@
+﻿@model Alge.Models.UserProfileModel
+@using Alge.Controllers
+
+@{
+
+    ViewBag.Title = "Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.SearchBar = true;
+}
+<style>
+    .field-validation-error {
+        color: red;
+    }
+</style>
+<script src="~/scripts/MaskPlugin/MaskPlugin.js"></script>
+<script src="~/scripts/MaskPlugin/MaskPlugin2.0.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="container-fluid">
+            <!--        Corpo Site-->
+            <div style="margin-bottom: 20px;" class="row">
+                <div class="col-md-8 col-md-offset-4 col-sm-offset-3 col-sm-9s"><h2>Perfil</h2></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-3">
+                    <div class="list-group">
+                        @{
+                            Html.RenderPartial("~/Views/Shared/_Partial_left_navbar.cshtml");
+                        }
+                    </div>
+                </div>
+                <div class="col-md-4 col-md-offset-1 col-sm-4">
+                    <form class="form">
+                        <div class="form-group loginInputs">
+
+                            Número do usuário
+                            <p class="form-text-view">@Model.Id</p>
+                            E-mail
+                            <p class="form-text-view">@Model.Email</p>
+
+
+
+                            @Html.Label("Nome")
+                            @Html.TextBoxFor(model => model.Name, new { @class = "global-form-style", placeholder = "Nome", @Value = Model.Name })
+                            @Html.ValidationMessageFor(model => model.Name)<br />
+
+
+
+
+                            @*@Html.Label(MainMessages.birthday)
+        @Html.TextBoxFor(model => model.BirthDay, new { @class = "global-form-style date", placeholder = MainMessages.birthday, @Value = ViewBag.BirthDay })
+        @Html.ValidationMessageFor(model => model.BirthDay)<br />*@
+
+                            @Html.Label("telefone celular")
+                            <p class="form-text-view">@Model.Phone</p>
+
+
+
+
+
+
+
+
+
+
+
+                            <p style="font-size:18px; color:red">@ViewBag.Message</p>
+                            <p>
+                                <input type="submit" value="Salvar" class="global-form-style" />
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    @*<script id="phone-box-template" type="text/x-template">
+            <select id="Select-phone-{ID}" onfocusout="UpdatePhone($(this).attr('id').replace(/Select-phone-/, ''))" class="global-form-style" style="font-size:12px; width:41.2%; float:left; height:36px;margin-right:2%">
+                <option value="1">@home_phone</option>
+                <option value="2">@MainMessages.mobile</option>
+                <option value="3" selected>@MainMessages.bussines_phone</option>
+            </select>
+            <input type="text" id="Input-phone-{ID}" onfocusout="UpdatePhone($(this).attr('id').replace(/Input-phone-/, ''))" class="global-form-style phone-number-mask" value="{PhoneNumber}" style="width:48%;float:left;" />
+            <a id="Button-remove-{ID}" onclick="RemovePhone($(this).attr('id').replace(/Button-remove-/, ''))"><i class="fa fa-minus-circle" aria-hidden="true" style="font-size:25px;padding:6px 0px 6px 6px;margin-bottom:5px;color:red;cursor: pointer;"></i></a>
+        </script>
+    *@
+
+    <script>
+
+        var phoneFieldString = $("#phone-box-template").html();
+        var UserPhones = {};
+
+        function UpdatePhone(ID) {
+            var newInput = false;
+            var Phone = {};
+
+            function SetNewInputID_AjaxCallBack(obj) {
+                if (newInput)
+                {
+                    $("#Select-phone-0").attr("id","Select-phone-"+ obj.id);
+                    $("#Input-phone-0").attr("id", "Input-phone-" + obj.id);
+                    $("#Button-remove-0").attr("id", "Button-remove-" + obj.id);
+                };
+            };
+            if (ID == 0) { newInput = true; }
+
+            if ($("#Input-phone-" + ID).val() != "") {
+                var action = "_update";
+                if (ID == 0) { action = "_new" };
+                Phone = {
+                    ID: ID,
+                    PhoneTypeID: $("#Select-phone-" + ID + " option:selected").val(),
+                    PhoneNumber: $("#Input-phone-" + ID).val(),
+                    PhoneModelAction: action
+                }
+                $.ajax({
+                    method: "POST",
+                    url: "/Ajax/PhoneInputAction",
+                    data: JSON.stringify(Phone),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                })
+                    .done(function (obj) {
+                        SetNewInputID_AjaxCallBack(obj);
+                    });
+            }
+        };
+
+        function RemovePhone(ID) {
+
+            var Phone = {};
+
+            function DeleteInput_AjaxCallBack(obj)
+            {
+                    $("#Select-phone-" + obj.ID).remove();
+                    $("#Input-phone-" + obj.ID).remove();
+                    $("#Button-remove-" + obj.ID).remove();
+
+                    if ($("#phone-box").children().length < 3) {
+                        AddNewPhoneField();
+                    }
+            };
+
+            if (ID != 0)
+            {
+                Phone = {
+                    ID: ID,
+                    PhoneTypeID: $("#Select-phone-" + ID + " option:selected").val(),
+                    PhoneNumber: $("#Input-phone-" + ID).val(),
+                    PhoneModelAction: "_remove"
+                }
+
+                $.ajax({
+                    method: "POST",
+                    url: "/Ajax/PhoneInputAction",
+                    data: JSON.stringify(Phone),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                })
+                    .done(function (obj) {
+                        console.log(obj);
+                        DeleteInput_AjaxCallBack(obj);
+                    });
+            }
+
+
+
+        }
+
+        function AddNewPhoneField()
+        {
+            if ($("#Select-phone-0").length == 0 && $("#Input-phone-0").length == 0 && $("#Button-remove-0").length == 0) {
+                $("#phone-box").prepend(phoneFieldString.replace(/{PhoneNumber}/g, "").replace(/{ID}/g, 0));
+                UpdateMasks();
+            }
+        };
+
+        function AddPhoneField(PhoneTypeID, PhoneNumber, ID)
+        {
+            $("#phone-box").append(phoneFieldString.replace(/{PhoneNumber}/g, PhoneNumber).replace(/{ID}/g, ID));
+            $("#Select-phone-" + ID + " option[value='" + PhoneTypeID + "']").attr('selected', 'selected');
+            UpdateMasks();
+        };
+
+        function PhonePopulate() {
+
+            function GetRegisteredPhones_AjaxCallBack(data) {
+                UserPhones = data;
+            };
+            $.ajax({
+
+                type: "POST",
+                url: "/Ajax/GetRegisteredPhones",
+                dataType: "json",
+                data: {
+                    id: @Model.FK_Clientes_User
+                },
+                async: false
+            })
+                .done(function (data) {
+                    GetRegisteredPhones_AjaxCallBack(data);
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                });
+
+            if (UserPhones.length < 1) {
+                AddNewPhoneField();
+            }
+            else
+            {
+                UserPhones.forEach(function func(val) {
+                    AddPhoneField(val.PhoneTypeID, val.PhoneNumber,val.ID);
+                });
+            }
+        };
+        PhonePopulate();
+    </script>
+
+
+}

@@ -65,7 +65,7 @@ namespace Alge.Controllers
                             AlgeCookieController.LoggedByAdmin = false;
                             AlgeCookieController.UserEmail = model.Email;
                             AlgeCookieController.UserStatus = "logado";
-                            AlgeCookieController.UserID = model.ID;
+                            AlgeCookieController.UserID = loginModel.ID;
                             return RedirectToAction("Index", "Home");
 
                         }
@@ -128,6 +128,12 @@ namespace Alge.Controllers
                 return View(model);
             }
             return RedirectToAction("Index");
+        }
+        [CredentialsFilter(Order = 1)]
+        public IActionResult Profile()
+        {
+            UserProfileModel model = UserProcedures.GetProfileModel(AlgeCookieController.UserID);
+            return View(model);
         }
         public ActionResult LogOut()
         {

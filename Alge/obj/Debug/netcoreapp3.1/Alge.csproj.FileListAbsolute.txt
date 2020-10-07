@@ -821,3 +821,5 @@ C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.dll
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.pdb
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.genruntimeconfig.cache
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Home\Register.cshtml.g.cs
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Home\Profile.cshtml.g.cs
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Partial_left_navbar.cshtml.g.cs

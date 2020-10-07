@@ -20,7 +20,7 @@
         <nav class="navbar navbar-expand-lg  blue-primary" id="menu_nav">
 
             <div class="container">
-                <a class="navbar-brand h1 nb-0" href="#">Alge Visual</a>
+                <a class="navbar-brand h1 nb-0" href="/home">Alge Visual</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
                     <span class="navbar-toggler-icon"></span>
@@ -55,7 +55,7 @@
                               
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i style="color:white" class="fa fa-user" aria-hidden="true"></i> Minha conta</a>
                                 <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Detalhes", "Profile", "Usuario")</li>
+                                    <li>@Html.ActionLink("Detalhes", "Profile", "Home")</li>
 
                                     <li>@Html.ActionLink("Carrinho", "Index", "Galeria", new { page = 1 }, null)</li>
                                     <li>@Html.ActionLink("Sair", "Logout", "Home")</li>

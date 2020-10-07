@@ -8,35 +8,39 @@
 @using (Html.BeginForm())
 {
 
-    <div class="card" id="tela-login">
-        <div class="card-body">
-            <form>
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.Email, (String)ViewBag.EmailRegister, new { @class = "global-form-style", placeholder = "Email" })
+<div class="card" id="tela-login">
+    <div class="card-body">
+        <form>
 
-                    @Html.TextBoxFor(m => m.Name, (String)ViewBag.Name, new { @class = "global-form-style", placeholder = "nome" })
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Email, (String)ViewBag.EmailRegister, new { @class = "global-form-style", placeholder = "Email" })
 
-                    @Html.PasswordFor(m => m.Password, new { @class = "global-form-style", placeholder = "senha de 8 caracteres" })
+                @Html.TextBoxFor(m => m.Name, (String)ViewBag.Name, new { @class = "global-form-style", placeholder = "Nome completo" })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(m => m.Password, new { @class = "global-form-style", placeholder = "senha de 8 caracteres" })
 
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "global-form-style", placeholder = "confime a senha " })
-                                     
-                    @Html.TextBoxFor(m => m.MobilePhone, null, new { @class = "global-form-style phone-number-mask", placeholder = "Telefone celular" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "global-form-style", placeholder = "confime a senha" })
 
-                </div>
-
+                @Html.TextBoxFor(m => m.MobilePhone, null, new { @class = "global-form-style phone-number-mask", placeholder = "Telefone celular" })
+            </div>
+            <div class="form-group">
                 <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
-                @if (ViewBag.ErrorMessage != null)
-                {
-                    <div class="alert alert-danger" role="alert">
-                        @ViewBag.ErrorMessage
-                    </div>
-                }
-            </form>
-            <a
-                class="nav-link">@Html.ActionLink("ir para o Login", "login", "Home", new { t = 2 }, new { @class = "nav-bar-item-margin" })
-            </a>
-        </div>
+
+
+            </div>
+        </form>
+        <a class="nav-link">
+            @Html.ActionLink("ir para o Login", "login", "Home", new { t = 2 }, new { @class = "nav-bar-item-margin" })
+        </a>
     </div>
+    @if (ViewBag.MessageRegister != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.MessageRegister
+        </div>
+    }
+</div>
 
 
 
