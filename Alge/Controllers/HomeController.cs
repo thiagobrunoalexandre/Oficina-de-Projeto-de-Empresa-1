@@ -9,6 +9,7 @@ using Alge.Models;
 
 using Alge.DAO;
 using BancodeImagens.Procedures;
+using Microsoft.AspNetCore.Http;
 
 namespace Alge.Controllers
 {
@@ -44,6 +45,34 @@ namespace Alge.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [CredentialsFilter(Order = 1)]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        public IActionResult RecoveryPassword(string PRUrl)
+        {
+            var requestResult = UserProcedures.VerifyRecoveryCode(PRUrl);
+
+            if (requestResult.Item2)
+            {
+                AlgeCookieController.UserEmail = requestResult.Item3;
+                AppHttpContext.Current.Session.SetInt32("recoveryUserId", requestResult.Item1);
+                return View();
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
