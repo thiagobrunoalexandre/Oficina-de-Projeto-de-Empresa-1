@@ -52,30 +52,65 @@ namespace Alge.Controllers
         {
             return View();
         }
-
+        [CredentialsFilter(Order = 1)]
+        public IActionResult ChangeEmail()
+        {
+            return View();
+        }
         public IActionResult ForgotPassword()
         {
             return View();
         }
 
-        public IActionResult RecoveryPassword(string PRUrl)
+        [CredentialsFilter(Order = 1)]
+        [HttpPost]
+        public IActionResult ChangeEmail(ChangeEmailModel model)
         {
-            var requestResult = UserProcedures.VerifyRecoveryCode(PRUrl);
-
-            if (requestResult.Item2)
+            if (ModelState.IsValid)
             {
-                AlgeCookieController.UserEmail = requestResult.Item3;
-                AppHttpContext.Current.Session.SetInt32("recoveryUserId", requestResult.Item1);
-                return View();
-
+                if (UserProcedures.EmailExist(model.NewEmail))
+                {
+                    ViewBag.Message = "O email já esta em uso";
+                    return View();
+                }
+                else
+                {
+                    UserProcedures.ChangeEmail(AlgeCookieController.UserEmail, model.NewEmail, AlgeCookieController.UserID.ToString());
+                    ViewBag.Message = "Email atualizado com sucesso";
+                    AlgeCookieController.UserEmail = model.NewEmail;
+                    return View();
+                }
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return View(model);
             }
+
         }
 
+        [CredentialsFilter(Order = 1)]
         [HttpPost]
+        public IActionResult ChangePassword(ChangePasswordModel model)
+        {
+             if (ModelState.IsValid)
+            {
+                UserProcedures.ChangePassword(model.NewPassword, AlgeCookieController.UserID);
+                ViewBag.Message = "Senha alerada com sucesso!!";
+                return View();
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+            [HttpPost]
+        public IActionResult RecoveryPassword(UserModelRecovery model)
+        { 
+        
+        return null;
+        }
+
+            [HttpPost]
         public IActionResult Login(LoginModel model)
         {
 

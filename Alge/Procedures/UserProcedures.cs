@@ -52,6 +52,36 @@ namespace BancodeImagens.Procedures
             }
         }
 
+        public static void ChangePassword(string newPassword, int UserID)
+        {
+            MD5 md5hash = MD5.Create();
+            string passwordHashed = PasswordProcedures.ToMD5Hash(newPassword);
+          
+            using (CallDB db = new CallDB())
+            {
+
+                new UsersQuery(db).ChangePassword(passwordHashed, UserID);
+                db.conexao.Close();
+
+               
+            }
+
+            
+
+        }
+        public static void ChangeEmail(string emailFrom, string emailTo, string idUser)
+        {
+            using (CallDB db = new CallDB())
+            {
+
+                new DMLQuery(db).UpdateData("usuario", new List<string> { "email" }, new List<string> { emailTo }, "id_usuario =" + idUser);
+                db.conexao.Close();
+
+               
+
+            }
+
+        }
 
         public static UserProfileModel GetProfileModel(int userID)
         {

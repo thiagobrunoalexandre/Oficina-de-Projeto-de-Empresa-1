@@ -146,7 +146,7 @@ namespace Alge.DAO.Query
         public void ChangePassword(string newpass, int UserID)
         {
 
-            string QueryString = String.Format("UPDATE CLIENTES_User set CLIENTES_User_password_hash = '{0}' WHERE ID_CLIENTES_User = {1}", newpass, UserID);
+            string QueryString = String.Format("UPDATE usuario set password_hash = '{0}' WHERE id_usuario = {1}", newpass, UserID);
             MySqlCommand comm = new MySqlCommand("", db.conexao);
             comm.CommandText = QueryString;
             try

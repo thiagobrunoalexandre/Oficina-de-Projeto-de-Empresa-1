@@ -1,0 +1,62 @@
+﻿@model Alge.Models.ChangeEmailModel
+@{
+    ViewBag.Title = "Alterar email";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.SearchBar = true;
+}
+<style>
+    .field-validation-error {
+        color: red;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    {
+        <fieldset>
+            <div class="container-fluid">
+                <!--        Corpo Site-->
+                <div style="margin-bottom: 20px;" class="row">
+                    <div class="col-md-4 col-md-offset-4"><h2>Alterar email</h2></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="list-group">
+                            @{
+                                Html.RenderPartial("~/Views/Shared/_Partial_left_navbar.cshtml");
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-1">
+                        <form class="form">
+                            <div class="form-group loginInputs">
+                                @*@Html.Label(MainMessages.current_password)<br />
+                                    @Html.PasswordFor(model => model.OldPassword, new { @class = "global-form-style", placeholder = MainMessages.current_password })
+                                    @Html.ValidationMessageFor(model => model.OldPassword)<br />*@
+
+                                @Html.Label("Novo email")<br />
+                                @Html.TextBoxFor(model => model.NewEmail, new { @class = "global-form-style", placeholder ="novo email" })
+                                @Html.ValidationMessageFor(model => model.NewEmail)<br />
+
+                                @Html.Label("Confirme o novo email")<br />
+                                @Html.TextBoxFor(model => model.ConfirmNewEmail, new { @class = "global-form-style", placeholder ="confime o novo email"})
+                                @Html.ValidationMessageFor(model => model.ConfirmNewEmail)<br />
+
+                                <p style="font-size18px; color:red">@ViewBag.Message</p>
+                                <p>
+                                    <input type="submit" value="Alterar email" class="global-form-style" />
+                                </p>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </fieldset>
+    }
+}
+
