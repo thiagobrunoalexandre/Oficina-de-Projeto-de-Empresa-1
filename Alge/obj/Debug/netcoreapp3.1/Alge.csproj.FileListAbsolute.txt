@@ -440,7 +440,6 @@ C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.MvcAppl
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.MvcApplicationPartsAssemblyInfo.cache
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.RazorAssemblyInfo.cache
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.RazorAssemblyInfo.cs
-C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.csprojAssemblyReference.cache
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\appsettings.json
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -826,3 +825,5 @@ C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.pdb
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.genruntimeconfig.cache
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Home\ChangePassword.cshtml.g.cs
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Home\ChangeEmail.cshtml.g.cs
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.csprojAssemblyReference.cache
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Home\Produto.cshtml.g.cs

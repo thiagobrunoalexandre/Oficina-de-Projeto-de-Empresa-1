@@ -10,6 +10,7 @@ using Alge.Models;
 using Alge.DAO;
 using BancodeImagens.Procedures;
 using Microsoft.AspNetCore.Http;
+using Alge.DAO.Query;
 
 namespace Alge.Controllers
 {
@@ -42,6 +43,7 @@ namespace Alge.Controllers
 
         }
 
+       
         public IActionResult Privacy()
         {
             return View();
@@ -152,6 +154,23 @@ namespace Alge.Controllers
             }
 
         }
+    
+        public ActionResult Produto()
+        {
+            ViewBag.produtos = new UsersQuery().ReturnProdutos();
+
+
+            return View();
+        }
+
+        [CredentialsFilter(Order = 1)]
+        [HttpPost]
+        public IActionResult Profile(UserProfileModel model)
+        {
+            model.Update();
+
+            return View(model);
+        }
         [HttpPost]
         public IActionResult Register(RegisterModel model)
         {
@@ -211,5 +230,7 @@ namespace Alge.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
     }
 }

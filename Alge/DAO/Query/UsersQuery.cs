@@ -1,5 +1,5 @@
 ﻿using Alge.Models;
-
+using Alge.Models.Produto;
 using BancodeImagens.Procedures;
 using MySql.Data.MySqlClient;
 using System;
@@ -46,7 +46,78 @@ namespace Alge.DAO.Query
             }
         }
 
+        public void UpdateProfile(UserProfileModel model)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = "UPDATE usuario set nome = @nome, telefone = @telefone  WHERE id_usuario = @id_usuario";
 
+            comm.Parameters.AddWithValue("@nome", model.Name);
+            comm.Parameters.AddWithValue("@telefone", model.Phone);
+            comm.Parameters.AddWithValue("@id_usuario", model.Id);
+          
+
+            try
+            {
+                db.conexao.Open();
+
+                comm.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+        }
+
+        public List<Produto> ReturnProdutos()
+        {
+           
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = String.Format("SELECT * FROM produto ;");
+            try
+                {
+                    db.conexao.Open();
+                    using (MySqlDataReader reader = comm.ExecuteReader())
+                    {
+                        List<Produto> produtos = new List<Produto>();
+
+
+                        while (reader.Read())
+                        {
+                            try
+                            {
+                                produtos.Add(new Produto()
+                                {
+                                    Id = reader.GetInt32("idProduto"),
+                                    nome = reader.GetString("nome"),
+                                    quantidade = reader.GetInt32("quantidade"),
+                                    descricao = reader.GetString("descricao"),
+                                    preco = reader.GetDouble("preco"),
+                                    categoria = reader.GetInt32("fk_categoria"),
+                                });
+                            }
+                            catch (Exception e)
+                            {
+                            }
+                        };
+
+                        return produtos;
+                    };
+                }
+                catch
+                {
+
+                    return null;
+                }
+                finally
+                {
+                    db.conexao.Close();
+                }
+
+            
+        }
         public UserProfileModel GetProfile(int userID)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);

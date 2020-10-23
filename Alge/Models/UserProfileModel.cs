@@ -1,5 +1,6 @@
 ﻿
 
+using Alge.DAO.Query;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -39,9 +40,19 @@ namespace Alge.Models
         //PERMISSÃO(PARA VIEW CLIENTE DO ADMIN)
         public string Nivel { get; set; }
 
-        
 
-        
+        public void Update()
+        {
+            using (CallDB db = new CallDB())
+            {
+
+                new UsersQuery(db).UpdateProfile(this);
+               
+
+               
+            }
+        }
+
     }
 
     public class PhoneModel
@@ -65,4 +76,6 @@ namespace Alge.Models
         juridica = 2
 
     }
+
+    
 }
