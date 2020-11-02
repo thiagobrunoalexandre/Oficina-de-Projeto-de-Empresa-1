@@ -11,6 +11,7 @@ using Alge.DAO;
 using BancodeImagens.Procedures;
 using Microsoft.AspNetCore.Http;
 using Alge.DAO.Query;
+using Alge.Models.Produto;
 
 namespace Alge.Controllers
 {
@@ -90,6 +91,7 @@ namespace Alge.Controllers
 
         }
 
+
         [CredentialsFilter(Order = 1)]
         [HttpPost]
         public IActionResult ChangePassword(ChangePasswordModel model)
@@ -154,14 +156,44 @@ namespace Alge.Controllers
             }
 
         }
-    
-        public ActionResult Produto()
+       
+            [HttpGet("/Home/Detalhe/{Id}")]
+        public IActionResult Detalhe(int Id)
         {
+           
+
+            ViewBag.produtos = new UsersQuery().ReturnProdutosDetalhe(Id);
+            return View(); 
+        }
+
+        [HttpPost]
+        public IActionResult Detalhe(Carrinho model, int Id)
+        {
+            Produto produto = new Produto();
+            produto.texto_personalizado = model.texto_personalizado;
+            produto.id_produto = Id;
+
+
+            if (Alge.CartCookieController.AddCartItem(produto))
+            {
+                return RedirectToAction("Produto", "Home", new { idCarrinho = produto.id_produto });
+            }
+            else
+            {
+                
+                return RedirectToAction("Produto", "Home", new { idCarrinho = "" });
+            }
+        }
+        public ActionResult Produto(string  idCarrinho = "")
+        {
+            
+            ViewBag.carrinho = idCarrinho;
             ViewBag.produtos = new UsersQuery().ReturnProdutos();
 
 
             return View();
         }
+
 
         [CredentialsFilter(Order = 1)]
         [HttpPost]

@@ -1,0 +1,84 @@
+﻿@{
+    @model Alge.Models.Carrinho;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.SearchBar = true;
+    List<Produto> Produtos = (List<Produto>)ViewBag.produtos;
+
+}
+@using Alge.Models.Produto;
+
+
+<div class="col-md-12">
+    <div style="margin-bottom: 20px;" class="row">
+        <div class="col-md-4 col-md-offset-4"><h2>Detalhes</h2></div>
+    </div>
+    
+    <div class="blog-content-text-style text-justify">
+
+
+        @foreach (Produto produto in Produtos)
+        {@using (Html.BeginForm())
+            {
+                <div class="col-md-6 ">
+                    <form class="form">
+                        <div class="form-group loginInputs">
+
+                            <p class="form-text-view">Personalize seu produto</p>
+                            @Html.Label("Cod ")
+                            @Html.TextBoxFor(model => model.Id_produto, new { @class = "global-form-style", placeholder = "cod", Enabled = "False" })
+                            @Html.ValidationMessageFor(model => model.Id_produto)
+
+                            @Html.Label("Nome do produto")
+                            @Html.TextBoxFor(model => model.texto_personalizado, new { @class = "global-form-style", placeholder = "Nome do produto", })
+                            @Html.ValidationMessageFor(model => model.texto_personalizado)
+
+
+
+
+                            <p style="font-size:30px; color:red">@ViewBag.Message</p>
+                            <p>
+                                <input type="submit" name="@produto.id_produto" value="Addcarrinho" class="global-form-style" />
+                            </p>
+                        </div>
+                    </form>
+                </div>
+
+            }
+        <div class="col-md-6">
+
+            <div class="card col-md-5 " style="width: 25rem;">
+
+
+                <h5 class="card-title">@produto.nome</h5>
+                <div class="card-body">
+
+                    <img src="@produto.imagem" runat="server" style="max-width:200px; max-height:120px" />
+
+
+
+                    <p>Cod: @produto.id_produto</p>
+                    <p>@produto.descricao</p>
+                    <p>R$ @produto.preco</p>
+                    <p>Categoria @produto.categoria</p>
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    }
+
+
+
+
+
+
+
+    </div>
+     </div>
+

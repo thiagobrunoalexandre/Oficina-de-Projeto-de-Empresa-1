@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.SearchBar = true;
     List<Produto> Produtos = (List<Produto>)ViewBag.produtos;
-   
+    
 }
 @using Alge.Models.Produto;
 
@@ -12,39 +12,64 @@
     <div style="margin-bottom: 20px;" class="row">
         <div class="col-md-4 col-md-offset-4"><h2>Produtos</h2></div>
     </div>
-
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th>Cod do produto</th>
-                <th>Nome</th>
-                <th>Quantidade</th>
-                <th>Preço</th>
-                <th>Descrição</th>
-                <th>Categoria</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            @foreach (Produto produto  in Produtos)
-            {
-                <tr>
-                    <td>@produto.Id</td>
-                    <td>@produto.nome</td>
-                    <td>@produto.quantidade</td>
-                    <td>@produto.preco</td>
-                    <td>@produto.descricao</td>  
-                    <td>@produto.categoria</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    
 
 
 
-       
+
+
+
+    <div class="row">
+        @if (ViewBag.carrinho == "")
+        {
+
+
+        }
+        else
+        {
+            <div class="col-md-12">
+                <p>@Html.Raw(@String.Format("Produto foi adicionado ao carrinho"))</p>
+                <a href="@Url.Action("Index","Checkout")" class="btn-primary">
+                    Ir para o carrinho 
+                </a>
+            </div>
+
+        }
+        @foreach (Produto produto in Produtos)
+        {
+
+            <div class="col-md-3" style="padding-left:10px">
+
+                <div class="card my-5 " style="width: 18rem;">
+
+
+
+                    <div class="card-body">
+                        <a href="/Home/Detalhe/@produto.id_produto">
+                            <img src="@produto.imagem" runat="server" style="max-width:200px; max-height:120px" />
+                            <h5 class="card-title">@produto.nome</h5>
+
+
+                            <p>Cod: @produto.id_produto</p>
+                            <p>@produto.descricao</p>
+                            <p>R$ @produto.preco</p>
+                            <p>Categoria @produto.categoria</p>
+
+
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        }
+
+    </div>
+
 </div>
 
-
-
+<script src="~/script.js"></script>

@@ -18,17 +18,8 @@ namespace Alge.Models
      
         public String CompanyName { get; set; }
         public string Phone { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        //public String BirthDay { get; set; }
-        public String Website { get; set; }
-        public String Segmento { get; set; }
-        public String FonteContato { get; set; }
-        public String Address { get; set; }
-        public String CPF_CNPJ { get; set; }
-        public PersonType PersonType { get; set; }
-        public int FK_Clientes_User { get; set; }
-        public string GoogleDriveFolderID { get; set; }
-
+       
+ 
         //EMAIL
         [Required(ErrorMessage = "INFORME UM EMAIL VALIDO")]
         [StringLength(50, ErrorMessage = "O email deve conter entre 5 e 50 caracteres", MinimumLength = 5)]

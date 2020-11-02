@@ -31,33 +31,36 @@
 
                     <ul class="navbar-nav ml-5" id="item-menu">
 
-                       
 
-                       
+
+
 
                         <li class="nav-item">
 
                             <a class="nav-link" href="/Home/Produto">Produtos</a>
 
                         </li>
+                        <li class="nav-item">
+
+                        <a href="@Url.Action("Index","Checkout")"><i class="fa fa-shopping-cart" aria-hidden="true" style="color:white"></i> Carrinho (@CartCookieController.ReturnCartProductsCount())</a>
+
+                        </li>
 
                         @if (AlgeCookieController.UserStatus != null)
                         {
-                            <li class="nav-link dropdown">
-                              
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i style="color:white" class="fa fa-user" aria-hidden="true"></i> Minha conta</a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Detalhes", "Profile", "Home")</li>
+                    <li class="nav-link dropdown">
 
-                                    <li>@Html.ActionLink("Carrinho", "Index", "Galeria", new { page = 1 }, null)</li>
-                                    <li>@Html.ActionLink("Sair", "Logout", "Home")</li>
-                                </ul>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-link">@Html.ActionLink("Fazer Login/Criar conta", "Login", "Home", new { t = 2 }, new { @class = "nav-bar-item-margin" })</li>
-                        }
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i style="color:white" class="fa fa-user" aria-hidden="true"></i> Minha conta</a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Detalhes", "Profile", "Home")</li>
+
+                            <li>@Html.ActionLink("Carrinho", "Index", "Galeria", new { page = 1 }, null)</li>
+                            <li>@Html.ActionLink("Sair", "Logout", "Home")</li>
+                        </ul>
+                    </li> }
+                                else
+                                {
+                    <li class="nav-link">@Html.ActionLink("Fazer Login/Criar conta", "Login", "Home", new { t = 2 }, new { @class = "nav-bar-item-margin" })</li>}
 
 
                     </ul>

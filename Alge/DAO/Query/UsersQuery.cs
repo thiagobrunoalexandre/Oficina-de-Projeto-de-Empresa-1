@@ -90,12 +90,13 @@ namespace Alge.DAO.Query
                             {
                                 produtos.Add(new Produto()
                                 {
-                                    Id = reader.GetInt32("idProduto"),
+                                    id_produto = reader.GetInt32("idProduto"),
                                     nome = reader.GetString("nome"),
                                     quantidade = reader.GetInt32("quantidade"),
                                     descricao = reader.GetString("descricao"),
                                     preco = reader.GetDouble("preco"),
                                     categoria = reader.GetInt32("fk_categoria"),
+                                    imagem = reader.GetString("imagem_url"),
                                 });
                             }
                             catch (Exception e)
@@ -117,6 +118,55 @@ namespace Alge.DAO.Query
                 }
 
             
+        }
+
+        public List<Produto> ReturnProdutosDetalhe(int id )
+        {
+
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = String.Format("SELECT * FROM produto WHERE idProduto = {0};", id);
+            try
+            {
+                db.conexao.Open();
+                using (MySqlDataReader reader = comm.ExecuteReader())
+                {
+                    List<Produto> produtos = new List<Produto>();
+
+
+                    while (reader.Read())
+                    {
+                        try
+                        {
+                            produtos.Add(new Produto()
+                            {
+                                id_produto = reader.GetInt32("idProduto"),
+                                nome = reader.GetString("nome"),
+                                quantidade = reader.GetInt32("quantidade"),
+                                descricao = reader.GetString("descricao"),
+                                preco = reader.GetDouble("preco"),
+                                categoria = reader.GetInt32("fk_categoria"),
+                                imagem = reader.GetString("imagem_url"),
+                            });
+                        }
+                        catch (Exception e)
+                        {
+                        }
+                    };
+
+                    return produtos;
+                };
+            }
+            catch
+            {
+
+                return null;
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+
+
         }
         public UserProfileModel GetProfile(int userID)
         {
