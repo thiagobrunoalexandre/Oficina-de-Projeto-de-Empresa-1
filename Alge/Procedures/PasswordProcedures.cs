@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BancodeImagens.Procedures
+namespace Alge.Procedures
 {
     public static class PasswordProcedures
     {

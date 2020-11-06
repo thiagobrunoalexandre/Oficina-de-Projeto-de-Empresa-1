@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="Classes_Cookies\" />
-    <Folder Include="Procedures\" />
   </ItemGroup>
 
 </Project>

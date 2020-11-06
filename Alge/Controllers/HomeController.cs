@@ -8,10 +8,11 @@ using Microsoft.Extensions.Logging;
 using Alge.Models;
 
 using Alge.DAO;
-using BancodeImagens.Procedures;
+
 using Microsoft.AspNetCore.Http;
 using Alge.DAO.Query;
 using Alge.Models.Produto;
+using Alge.Procedures;
 
 namespace Alge.Controllers
 {
@@ -90,7 +91,12 @@ namespace Alge.Controllers
             }
 
         }
-
+        [CredentialsFilter(Order = 1)]
+        public IActionResult RemoverCartItem(string id)
+        {
+            CartCookieController.RemoveCartItem(id);
+            return RedirectToAction("Index", "Checkout");
+        }
 
         [CredentialsFilter(Order = 1)]
         [HttpPost]
@@ -172,9 +178,10 @@ namespace Alge.Controllers
             Produto produto = new Produto();
             produto.texto_personalizado = model.texto_personalizado;
             produto.id_produto = Id;
+            var itens = new UsersQuery().ReturnProdutos(Id);
+           
 
-
-            if (Alge.CartCookieController.AddCartItem(produto))
+            if (CartCookieController.AddCartItem(produto, itens.preco ,  model.quantidade_produto ,itens.imagem,model.texto_personalizado ))
             {
                 return RedirectToAction("Produto", "Home", new { idCarrinho = produto.id_produto });
             }

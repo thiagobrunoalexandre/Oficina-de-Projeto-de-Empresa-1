@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BancodeImagens
+namespace Alge
 {
     public class AdminCredentialsFilterAttribute : Attribute, IActionFilter, IOrderedFilter
     {

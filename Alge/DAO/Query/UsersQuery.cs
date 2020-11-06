@@ -1,6 +1,6 @@
 ﻿using Alge.Models;
 using Alge.Models.Produto;
-using BancodeImagens.Procedures;
+using Alge.Procedures;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -45,7 +45,28 @@ namespace Alge.DAO.Query
                 db.conexao.Close();
             }
         }
+        public int RegisterPedido(double valorTotal,int user)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = String.Format("INSERT INTO pedido(data_pedido ,fk_usuario,preco, fk_status ) VALUES('{0}', '{1}', '{2}','{3}'); SELECT LAST_INSERT_ID() as ID",  DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), user,valorTotal.ToString().Replace(',', '.'),1);// 1 staus 1 aguardando aprovação
 
+            try
+            {
+                db.conexao.Open();
+                MySqlDataReader reader = comm.ExecuteReader();
+                reader.Read();
+                return reader.GetInt32("ID");
+
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+        }
         public void UpdateProfile(UserProfileModel model)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);
@@ -165,6 +186,48 @@ namespace Alge.DAO.Query
             {
                 db.conexao.Close();
             }
+
+
+        }
+        public Produto ReturnProdutos(int id)
+        {
+
+
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = String.Format("SELECT * FROM produto WHERE idProduto = {0};", id);
+            try
+            {
+               
+                
+                  
+
+                    db.conexao.Open();
+                    using (MySqlDataReader reader = comm.ExecuteReader())
+                    {
+                        reader.Read();
+                        return new Produto
+                        {
+                            id_produto = reader.GetInt32("idProduto"),
+                            nome = reader.GetString("nome"),
+                            quantidade = reader.GetInt32("quantidade"),
+                            descricao = reader.GetString("descricao"),
+                            preco = reader.GetDouble("preco"),
+                            categoria = reader.GetInt32("fk_categoria"),
+                            imagem = reader.GetString("imagem_url"),
+                        };
+                    }
+                
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Erro na consulta GetPoolObjects: {0}", e.Message);
+                return null;
+            }
+            finally
+            {
+                db.conexao.Close(); //Fechando a conexão
+            }
+
 
 
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -27,8 +28,56 @@ using MySql.Data.MySqlClient;
             }
 
         }
+    public bool InsertData(string table, List<string> columns, List<string> values)
+    {
 
-        public CallDB(DBSource dbSource)
+        string valuesQuery = "(";
+        string columnsQuery = "(";
+        for (int i = 1; i <= columns.Count; i++)
+        {
+            bool noSingleQuote = values[i - 1].Contains("NOW()") || values[i - 1].Contains("True") || values[i - 1].Contains("False");
+
+            if (i != columns.Count)
+            {
+                values[i] = values[i] == null ? "" : values[i].Replace('\u0027', ' ');
+
+                valuesQuery += noSingleQuote == true ? values[i - 1] + "," : "'" + values[i - 1] + "'" + ",";
+
+                columnsQuery += columns[i - 1] + ",";
+            }
+            else
+            {
+                valuesQuery += noSingleQuote == true ? values[i - 1] : "'" + values[i - 1] + "'";
+                columnsQuery += columns[i - 1];
+            }
+        }
+        valuesQuery += ")";
+        columnsQuery += ")";
+
+        string Query = "INSERT INTO " + table + columnsQuery + " VALUES" + valuesQuery + ";";
+        Query += "SELECT LAST_INSERT_ID() as ID;";
+        MySqlCommand comm = new MySqlCommand("", conexao);
+        comm.CommandText = Query;
+
+        try
+        {
+            conexao.Open();
+            MySqlDataReader reader = comm.ExecuteReader();
+            reader.Read();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error on InsertData Message =  {0} \n  Query = {1}", e.Message, Query);
+            return false;
+        }
+        finally
+        {
+            conexao.Close(); //Fechando a conexão
+        }
+
+    }
+    public CallDB(DBSource dbSource)
         {
             var config = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())

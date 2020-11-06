@@ -17,6 +17,9 @@ using Microsoft.AspNetCore.Hosting;
 
 using Alge;
 using Alge.Models.Checkout;
+using Alge.Procedures;
+using static CallDB;
+using Alge.DAO.Query;
 
 namespace Alge.Controllers
 {
@@ -35,53 +38,49 @@ namespace Alge.Controllers
             return View(new CheckoutModel { });
         }
 
-        //[CredentialsFilter(Order = 1)]
-        //public ActionResult CheckoutResult()
-        //{
-        //    if (TempData["CheckoutResultModel"] != null)
-        //    {
-        //        CheckoutResultModel checkoutResultModel = (CheckoutResultModel)TempData["CheckoutResultModel"];
-        //        if (checkoutResultModel.CheckoutResultStatus == Classes_Enum.CheckoutResultStatus.awaiting_billing_data)
-        //        {
-        //            CartCookieController.ClearCartItens();
-        //            TempData["CheckoutResultModel"] = checkoutResultModel;
-        //            return RedirectToAction("Billing", "Usuario");
-        //        }
-        //        else if (checkoutResultModel.CheckoutResultStatus == Classes_Enum.CheckoutResultStatus.awaiting_payment)
-        //        {
-        //            CartCookieController.ClearCartItens();
-        //            return RedirectToAction("Orders", "Usuario", new { BillingInserted = true });
-        //        }
-        //        else
-        //        {
-        //            CartCookieController.ClearCartItens();
+        [HttpPost]
+        public ActionResult Index(CheckoutModel model)
+        {
+            Cart cart = CartCookieController.ReturnCart();
+            CartCookieController.RefreshCartAmounts();
+            using (CallDB db = new CallDB())
+            {
 
-        //            Order order = new Order().GetOrder(checkoutResultModel.OrderID.ToString());
-        //            if (order.ProductsType == ProductsType.singleImage)
-        //            {
-        //                return RedirectToAction("Orders", "Usuario", new { BillingInserted = true, RedirectOrderID = checkoutResultModel.OrderID });
-        //            }
-        //            else
-        //            {
-        //                return RedirectToAction("Orders", "Usuario", new { Succes = true });
-        //            }
+                double valorTotal = cart.CartTotalAmount;
+                int user = AlgeCookieController.UserID;
 
-        //            return RedirectToAction("Orders", "Usuario", new { Succes = true });
-        //        }
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //}
+                int pedidoID = new UsersQuery(db).RegisterPedido(valorTotal, user);
+              
 
-        
+                insetirIntems(pedidoID.ToString());
+            }
+            
+            
+                return View();
+        }
+
+        private void insetirIntems(string pedidoID)
+        {
+
+            Cart cart = CartCookieController.ReturnCart();
 
 
-        
+            for (int i = 0; i < cart.Product.Count; i++)
+            {
+                List<string> columns = new List<string>();
+                List<string> values = new List<string>();
 
-       
+            ListHelper.AddKey(ref columns, ref values, "FK_PRODUTO", cart.Product[i].ProductID.ToString());
+            ListHelper.AddKey(ref columns, ref values, "FK_PEDIDO", pedidoID);
+            ListHelper.AddKey(ref columns, ref values, "texto_personalizado", cart.Product[i].produtoCartFormat.Texto);
+            ListHelper.AddKey(ref columns, ref values, "quantidade", cart.Product[i].produtoCartFormat.Quantidade.ToString());
+            ListHelper.AddKey(ref columns, ref values, "valor", cart.Product[i].produtoCartFormat.Price.ToString().Replace(",","."));
+
+            CallDB db = new CallDB(DBSource.Alge_db);
+            bool insert = db.InsertData("itens_pedido", columns, values);
+
+            }
+        }
     }
 
 }

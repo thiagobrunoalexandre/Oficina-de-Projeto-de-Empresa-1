@@ -2,7 +2,7 @@
 using Alge.DAO.Query;
 using Alge.Models;
 using Alge.Models.Produto;
-using BancodeImagens.DAO.Query;
+using Alge.DAO.Query;
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace BancodeImagens.Procedures
+namespace Alge.Procedures
 {
     public static class UserProcedures
     {

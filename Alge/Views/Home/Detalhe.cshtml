@@ -9,12 +9,11 @@
 @using Alge.Models.Produto;
 
 
-<div class="col-md-12">
-    <div style="margin-bottom: 20px;" class="row">
-        <div class="col-md-4 col-md-offset-4"><h2>Detalhes</h2></div>
-    </div>
-    
-    <div class="blog-content-text-style text-justify">
+<div class="container">
+    <div class="row" style="margin: 3% 0 10% 0;">
+        <div style="margin-bottom: 20px;" class="row">
+            <div class="col-md-12"><h2>Detalhes</h2></div>
+        </div>
 
 
         @foreach (Produto produto in Produtos)
@@ -25,12 +24,12 @@
                         <div class="form-group loginInputs">
 
                             <p class="form-text-view">Personalize seu produto</p>
-                            @Html.Label("Cod ")
-                            @Html.TextBoxFor(model => model.Id_produto, new { @class = "global-form-style", placeholder = "cod", Enabled = "False" })
-                            @Html.ValidationMessageFor(model => model.Id_produto)
-
-                            @Html.Label("Nome do produto")
-                            @Html.TextBoxFor(model => model.texto_personalizado, new { @class = "global-form-style", placeholder = "Nome do produto", })
+                            @Html.Label("Quantidade")
+                            @Html.TextBoxFor(model => model.quantidade_produto, new { @class = "global-form-style", placeholder = "Quantidade", })
+                            @Html.ValidationMessageFor(model => model.quantidade_produto)
+                            <br />
+                            @Html.Label("Texto personalizado")
+                            @Html.TextBoxFor(model => model.texto_personalizado, new { @class = "global-form-style", placeholder = "Texto", })
                             @Html.ValidationMessageFor(model => model.texto_personalizado)
 
 
@@ -47,8 +46,7 @@
             }
         <div class="col-md-6">
 
-            <div class="card col-md-5 " style="width: 25rem;">
-
+            
 
                 <h5 class="card-title">@produto.nome</h5>
                 <div class="card-body">
@@ -66,7 +64,7 @@
 
                 </div>
 
-            </div>
+            
 
         </div>
 
@@ -76,9 +74,9 @@
 
 
 
-
-
-
     </div>
-     </div>
+
+</div>
+
+
 

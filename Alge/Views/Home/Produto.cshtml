@@ -29,7 +29,7 @@
         {
             <div class="col-md-12">
                 <p>@Html.Raw(@String.Format("Produto foi adicionado ao carrinho"))</p>
-                <a href="@Url.Action("Index","Checkout")" class="btn-primary">
+                <a href="@Url.Action("Index","Checkout")" class="btn-primary btn-info">
                     Ir para o carrinho 
                 </a>
             </div>
@@ -52,7 +52,7 @@
 
                             <p>Cod: @produto.id_produto</p>
                             <p>@produto.descricao</p>
-                            <p>R$ @produto.preco</p>
+                            <p>Preço @String.Format("R$ {0:N2}", @produto.preco)</p>
                             <p>Categoria @produto.categoria</p>
 
 
