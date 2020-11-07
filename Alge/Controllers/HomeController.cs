@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Http;
 using Alge.DAO.Query;
 using Alge.Models.Produto;
 using Alge.Procedures;
+using Alge.Models.Order;
+using Alge.Models.ItensPedido;
 
 namespace Alge.Controllers
 {
@@ -120,7 +122,26 @@ namespace Alge.Controllers
         return null;
         }
 
-            [HttpPost]
+        [CredentialsFilter(Order = 1)]
+        public ActionResult Orders()
+        {
+            
+            
+            List<Order> orders = new Order().GetAllUserOrders(AlgeCookieController.UserID);
+            ViewBag.orders = orders;
+        
+
+            return View();
+        }
+        [CredentialsFilter(Order = 1)]
+        public ActionResult ItensPedido(int id)
+        {
+            List<ItensPedido> itens = new ItensPedido().GetItensPedido(id);
+            ViewBag.pedido = id;
+            ViewBag.itensPedido = itens;
+            return View();
+        }
+        [HttpPost]
         public IActionResult Login(LoginModel model)
         {
 
@@ -162,12 +183,9 @@ namespace Alge.Controllers
             }
 
         }
-       
-            [HttpGet("/Home/Detalhe/{Id}")]
+        [HttpGet("/Home/Detalhe/{Id}")]
         public IActionResult Detalhe(int Id)
         {
-           
-
             ViewBag.produtos = new UsersQuery().ReturnProdutosDetalhe(Id);
             return View(); 
         }

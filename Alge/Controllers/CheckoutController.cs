@@ -50,16 +50,18 @@ namespace Alge.Controllers
                 int user = AlgeCookieController.UserID;
 
                 int pedidoID = new UsersQuery(db).RegisterPedido(valorTotal, user);
-              
 
-                insetirIntems(pedidoID.ToString());
+
+                inserirItems(pedidoID.ToString());
+
+                CartCookieController.ClearCartItens();
             }
             
             
-                return View();
+                return RedirectToAction("Orders", "Home");
         }
 
-        private void insetirIntems(string pedidoID)
+        private void inserirItems(string pedidoID)
         {
 
             Cart cart = CartCookieController.ReturnCart();
@@ -74,7 +76,8 @@ namespace Alge.Controllers
             ListHelper.AddKey(ref columns, ref values, "FK_PEDIDO", pedidoID);
             ListHelper.AddKey(ref columns, ref values, "texto_personalizado", cart.Product[i].produtoCartFormat.Texto);
             ListHelper.AddKey(ref columns, ref values, "quantidade", cart.Product[i].produtoCartFormat.Quantidade.ToString());
-            ListHelper.AddKey(ref columns, ref values, "valor", cart.Product[i].produtoCartFormat.Price.ToString().Replace(",","."));
+            ListHelper.AddKey(ref columns, ref values, "valor_total_itens", cart.Product[i].produtoCartFormat.Price.ToString().Replace(",","."));
+            ListHelper.AddKey(ref columns, ref values, "preco_produto_unidade", cart.Product[i].produtoCartFormat.PrecoUnitario.ToString().Replace(",","."));
 
             CallDB db = new CallDB(DBSource.Alge_db);
             bool insert = db.InsertData("itens_pedido", columns, values);

@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Meus pedidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.SearchBar = true;
+    List<Order> orders = (List<Order>)ViewBag.orders;
+   
+}
+
+@using Alge.Models.Order;
+@using System.Diagnostics;
+
+<div class="container-fluid">
+    <div style="margin-bottom: 20px;" class="row">
+        <div class="col-md-4 col-md-offset-4"><h2>Meus pedidos</h2></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                @{
+                    Html.RenderPartial("~/Views/Shared/_Partial_left_navbar.cshtml");
+                }
+            </div>
+        </div>
+        <div class="col-md-6 col-md-offset-1">
+
+
+
+
+
+
+            @if (orders.Count() > 0)
+            {
+                foreach (Order order in orders)
+                {
+            <div style="width:100%; border: 1px solid #000; margin-bottom:20px;" class="message-box">
+                <p><strong>Número do pedido</strong> @order.id_pedido </p>
+                @if (order.OrderStatus == OrderStatus.Aguarando_aprovacao)
+                {
+
+                    <p>Pedido aguardando aprovação de orçamento</p>
+                }
+                else if (order.OrderStatus == OrderStatus.completed)
+                {
+                    <p>Pedido Aprovado</p>
+                }
+                else if (order.OrderStatus == OrderStatus.cancelado)
+                {
+                    <p>Pedido Cancelado</p>
+                }
+                <p>Data do pedido  @order.data_pedido)</p>
+                <p>Valor total do pedido @String.Format("R$ {0:N2}", @order.valor_total)</p>
+
+                <p>@Html.ActionLink("Ver itens do pedido", "ItensPedido", "Home", new { id = @order.id_pedido }, new { target = "_blank" })</p>
+            </div>
+                }
+
+            }
+        </div>
+    </div>
+</div>

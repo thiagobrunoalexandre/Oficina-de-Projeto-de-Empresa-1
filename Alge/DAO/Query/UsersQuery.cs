@@ -48,7 +48,7 @@ namespace Alge.DAO.Query
         public int RegisterPedido(double valorTotal,int user)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);
-            comm.CommandText = String.Format("INSERT INTO pedido(data_pedido ,fk_usuario,preco, fk_status ) VALUES('{0}', '{1}', '{2}','{3}'); SELECT LAST_INSERT_ID() as ID",  DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), user,valorTotal.ToString().Replace(',', '.'),1);// 1 staus 1 aguardando aprovação
+            comm.CommandText = String.Format("INSERT INTO pedido(data_pedido ,fk_usuario,valor_total, fk_status ) VALUES('{0}', '{1}', '{2}','{3}'); SELECT LAST_INSERT_ID() as ID",  DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), user,valorTotal.ToString().Replace(',', '.'),1);// 1 staus 1 aguardando aprovação
 
             try
             {

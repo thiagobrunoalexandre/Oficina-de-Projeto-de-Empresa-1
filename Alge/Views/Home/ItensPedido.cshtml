@@ -1,0 +1,69 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.SearchBar = true;
+    List<ItensPedido> itens = (List<ItensPedido>)ViewBag.itensPedido;
+    
+}
+@using Alge.Models.ItensPedido;
+
+
+<div class="container-fluid">
+    <div style="margin-bottom: 20px;" class="row">
+        <div class="col-md-4 col-md-offset-4"><h2>Itens do pedido @ViewBag.pedido</h2></div>
+    </div>
+    
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                @{
+                    Html.RenderPartial("~/Views/Shared/_Partial_left_navbar.cshtml");
+                }
+            </div>
+        </div>
+      
+        <div class="col-md-6 col-md-offset-1">
+            @foreach (ItensPedido item in itens)
+            {
+
+                <div class="col-md-3" style="padding-left:10px">
+
+                    <div class="card my-5 " style="width: 18rem;">
+
+
+
+                        <div class="card-body">
+
+                            <img src="@item.imagem" runat="server" style="max-width:200px; max-height:120px" />
+                            <h5 class="card-title">@item.nome</h5>
+
+
+                            <p>Código do produto @item.ID</p>
+                            <p>preço unitario  @String.Format("R$ {0:N2}", @item.precoProduto)</p>
+                            <p>Personalização @item.texto_personalizado</p>
+                            <p>Quantidade @item.quantidade</p>
+                            <p>Total @String.Format("R$ {0:N2}", @item.valor)</p>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            
+            }
+            </div>
+        </div>
+
+    </div>
+
+<script src="~/script.js"></script>
