@@ -91,6 +91,36 @@ namespace Alge.DAO.Query
                 db.conexao.Close();
             }
         }
+        public void UpdateDadosFaturamento(RegisterModel model, int ID_usuario)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = "UPDATE usuario_fatuamento set endereco = @endereco, numero_endereco = @numero_endereco ,complemento_endereco = @complemento_endereco  ,cidade  = @cidade ,estado = @estado , cep = @cep , cpf = @cpf WHERE fk_usuario = @fk_usuario";
+
+
+            comm.Parameters.AddWithValue("@fk_usuario", ID_usuario);
+            comm.Parameters.AddWithValue("@endereco", model.endereco); 
+            comm.Parameters.AddWithValue("@numero_endereco", model.numero_endereco);
+            comm.Parameters.AddWithValue("@complemento_endereco", model.complemento);
+            comm.Parameters.AddWithValue("@cidade", model.cidade);
+            comm.Parameters.AddWithValue("@estado", model.estado);
+            comm.Parameters.AddWithValue("@cep", model.cep);   
+            comm.Parameters.AddWithValue("@cpf", model.cpf);
+
+
+            try
+            {
+                db.conexao.Open();
+
+                comm.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+        }
 
         public List<Produto> ReturnProdutos()
         {
@@ -258,6 +288,41 @@ namespace Alge.DAO.Query
             catch (Exception e)
             {
                 return new UserProfileModel();
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+        }
+        public RegisterModel GetFaturamento(int userID)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = ("SELECT * FROM usuario_fatuamento WHERE fk_usuario = @id ;");
+            comm.Parameters.AddWithValue("@id", userID);
+
+            try
+            {
+                db.conexao.Open();
+                MySqlDataReader reader = comm.ExecuteReader();
+                List<RegisterModel> listProfile = new List<RegisterModel>();
+                reader.Read();
+
+                return new RegisterModel
+                {
+                    endereco = Convert.ToString(reader["endereco"]),
+                    numero_endereco = Convert.ToString(reader["numero_endereco"]),
+                    complemento = Convert.ToString(reader["complemento_endereco"]),
+                    cidade = Convert.ToString(reader["cidade"]),
+                    estado = Convert.ToString(reader["estado"]),
+                    cep = Convert.ToString(reader["cep"]),
+                    cpf = Convert.ToString(reader["cpf"]),
+
+
+                };
+            }
+            catch (Exception e)
+            {
+                return new RegisterModel();
             }
             finally
             {

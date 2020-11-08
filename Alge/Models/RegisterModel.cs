@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
@@ -15,14 +16,33 @@ namespace Alge.Models
        
 
         public int ID {get;set;}
-
+        [DisplayName("E-mail")]
         public String Email { get; set; }
+        [DisplayName("Senha")]
         public String Password { get; set; }
+        [DisplayName("Confirme a senha")]
         public String ConfirmPassword { get; set; }
-       
+        [DisplayName("Nome completo")]
         public String Name { get; set; }
-     
+        
+        [DisplayName("Celular")]
         public String MobilePhone { get; set; }
+        [DisplayName("Endereço")]
+        public String endereco { get; set; }
+        [DisplayName("número")]
+        public String numero_endereco { get; set; }
+        [DisplayName("complemento")]
+        public String complemento { get; set; }
+        [DisplayName("cidade")]
+        public String  cidade { get; set; }
+        [DisplayName("estado")]
+        public String  estado { get; set; }
+        [DisplayName("CEP")]
+        public String  cep { get; set; }
+        [DisplayName("CPF")]
+        public String  cpf { get; set; }
+
+     
 
         public String Register_PasswordHash { get; set; }
 

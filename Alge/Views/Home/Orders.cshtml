@@ -33,20 +33,24 @@
             {
                 foreach (Order order in orders)
                 {
-            <div style="width:100%; border: 1px solid #000; margin-bottom:20px;" class="message-box">
+            <div style="width:100%; border: 1px solid #000; margin-bottom:20px;" class="form-box">
                 <p><strong>Número do pedido</strong> @order.id_pedido </p>
                 @if (order.OrderStatus == OrderStatus.Aguarando_aprovacao)
                 {
 
-                    <p>Pedido aguardando aprovação de orçamento</p>
+                    <p style="color:orangered">Pedido aguardando aprovação de orçamento</p>
                 }
-                else if (order.OrderStatus == OrderStatus.completed)
+                else if (order.OrderStatus == OrderStatus.orcamento_aprovado)
                 {
-                    <p>Pedido Aprovado</p>
+                    <p style="color:blue">Pedido com orçamento aprovado</p>
                 }
                 else if (order.OrderStatus == OrderStatus.cancelado)
                 {
-                    <p>Pedido Cancelado</p>
+                    <p style="color:red">Pedido cancelado</p>
+                }
+                else if (order.OrderStatus == OrderStatus.completed)
+                {
+                    <p style="color:green">Pedido concluido</p>
                 }
                 <p>Data do pedido  @order.data_pedido)</p>
                 <p>Valor total do pedido @String.Format("R$ {0:N2}", @order.valor_total)</p>

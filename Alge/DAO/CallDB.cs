@@ -77,6 +77,42 @@ using MySql.Data.MySqlClient;
         }
 
     }
+    public bool ExistData(string table, List<string> columns, List<string> columnsValues, string aditionalCondition = "")
+    {
+
+        string selectCondition = "";
+        for (int i = 1; i <= columns.Count; i++)
+        {
+            if (i != columns.Count)
+            {
+                selectCondition += columns[i - 1] + "='" + columnsValues[i - 1] + "'" + " AND ";
+            }
+            else
+            {
+                selectCondition += columns[i - 1] + "='" + columnsValues[i - 1] + "'";
+            }
+        }
+        MySqlCommand comm = new MySqlCommand("", conexao);
+        comm.CommandText = ("SELECT " + columns[0] + " FROM " + table + " WHERE " + selectCondition + " " + aditionalCondition);
+        try
+        {
+            conexao.Open();
+            MySqlDataReader reader = comm.ExecuteReader();
+            reader.Read();
+
+            if (reader.HasRows) { reader.Close(); return true; } else { reader.Close(); return false; }; //FALSE IF HAS //TRUE IF NO HAS
+
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+        finally
+        {
+            conexao.Close(); //Fechando a conexão
+        }
+
+    }
     public CallDB(DBSource dbSource)
         {
             var config = new ConfigurationBuilder()

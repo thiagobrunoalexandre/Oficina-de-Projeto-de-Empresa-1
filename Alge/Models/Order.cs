@@ -44,10 +44,10 @@ namespace Alge.Models.Order
     public enum OrderStatus
     {
         Aguarando_aprovacao = 1,
-        completed = 2,
-        cancelado = 3,
-        payment_denied = 4,
-        awaiting_billing_data = 5
+        completed = 3,
+        cancelado = 4,
+       
+        orcamento_aprovado = 2
     }
 
 }

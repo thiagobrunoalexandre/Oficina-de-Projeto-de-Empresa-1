@@ -1,44 +1,99 @@
 ﻿@model RegisterModel
 @{
-    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Cadastro ";
 }
 @using Alge.Models
 
-@using (Html.BeginForm())
-{
-
-<div class="card" id="tela-login">
-    <div class="card-body">
-        <form>
-
-            <div class="form-group">
-                @Html.TextBoxFor(m => m.Email, (String)ViewBag.EmailRegister, new { @class = "global-form-style", placeholder = "Email" })
-
-                @Html.TextBoxFor(m => m.Name, (String)ViewBag.Name, new { @class = "global-form-style", placeholder = "Nome completo" })
-            </div>
-            <div class="form-group">
-                @Html.PasswordFor(m => m.Password, new { @class = "global-form-style", placeholder = "senha de 8 caracteres" })
-
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "global-form-style", placeholder = "confime a senha" })
-
-                @Html.TextBoxFor(m => m.MobilePhone, null, new { @class = "global-form-style phone-number-mask", placeholder = "Telefone celular" })
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
 
 
-            </div>
-        </form>
-        <a class="nav-link">
-            @Html.ActionLink("ir para o Login", "login", "Home", new { t = 2 }, new { @class = "nav-bar-item-margin" })
-        </a>
-    </div>
-    @if (ViewBag.MessageRegister != null)
+<div class="container-fluid">
+    @using (Html.BeginForm())
     {
-        <div class="alert alert-danger" role="alert">
-            @ViewBag.MessageRegister
+        <div class="col-sm-12 my-5">
+            <div class="card" id="cadastro">
+                <div class="card-body">
+                    <div class="col-sm-6 col-md-6 col-lg-12">
+
+                        <form>
+
+                            <div class="form-row">
+
+                                <div class="form-group col-sm-12">
+
+                                    <label>Email</label>
+                                    @Html.LabelFor(m => m.Email)
+                                    @Html.TextBoxFor(m => m.Email, (String)ViewBag.EmailRegister, new { @class = "form-control", placeholder = "Email" })
+
+
+                                </div>
+
+
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-group col-sm-12">
+
+
+                                    @Html.LabelFor(m => m.Name)
+                                    @Html.TextBoxFor(m => m.Name, (String)ViewBag.Name, new { @class = "form-control", placeholder = "Nome completo" })
+
+                                </div>
+
+
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-group col-sm-4">
+                                    @Html.LabelFor(m => m.Password)
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "senha de 8 caracteres" })
+
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    @Html.LabelFor(m => m.ConfirmPassword)
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "confime a senha" })
+
+                                </div>
+                                <div class="form-group col-sm-4">
+
+                                    @Html.LabelFor(m => m.MobilePhone)
+
+                                    @Html.TextBoxFor(m => m.MobilePhone, null, new { @class = "form-control phone-number-mask", placeholder = "Telefone celular" })
+
+                                </div>
+
+                            </div>
+
+                           
+
+                            <div class="form-row">
+
+
+                                <div class="form-group col-3-sm">
+
+                                    <button type="submit" class="btn btn-primary" id="bt_cadastro ">Cadastrar</button>
+
+                                </div>
+
+
+
+
+
+                            </div>
+                        </form>
+                      
+                    </div>
+
+                </div>
+            </div>
         </div>
+
+        @if (ViewBag.MessageRegister != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.MessageRegister
+            </div>
+        }
     }
 </div>
 
@@ -53,4 +108,3 @@
 
 
 
-}

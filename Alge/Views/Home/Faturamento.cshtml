@@ -1,0 +1,107 @@
+﻿@model Alge.Models.RegisterModel
+@using Alge.Controllers
+
+@{
+
+    ViewBag.Title = "Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.SearchBar = true;
+}
+<style>
+    .field-validation-error {
+        color: red;
+    }
+</style>
+<script src="~/scripts/MaskPlugin/MaskPlugin.js"></script>
+<script src="~/scripts/MaskPlugin/MaskPlugin2.0.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="container-fluid">
+            <!--        Corpo Site-->
+            <div style="margin-bottom: 20px;" class="row">
+                <div class="col-md-8 col-md-offset-4 col-sm-offset-3 col-sm-9s"><h2>Perfil</h2></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-3">
+                    <div class="list-group">
+                        @{
+                            Html.RenderPartial("~/Views/Shared/_Partial_left_navbar.cshtml");
+                        }
+                    </div>
+                </div>
+                <div class="col-md-8 col-md-offset-1 col-sm-8">
+                  
+                    <div class="form-group loginInputs">
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    @Html.LabelFor(model => model.cpf)
+                                    @Html.TextBoxFor(model => model.cpf, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.cpf)
+
+
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    @Html.LabelFor(model => model.endereco)
+                                    @Html.TextBoxFor(model => model.endereco, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.endereco)
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    @Html.LabelFor(model => model.numero_endereco)
+                                    @Html.TextBoxFor(model => model.numero_endereco, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.numero_endereco)
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    @Html.LabelFor(model => model.complemento)
+                                    @Html.TextBoxFor(model => model.complemento, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.complemento)
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    @Html.LabelFor(model => model.cidade)
+                                    @Html.TextBoxFor(model => model.cidade, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.cidade)
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    @Html.LabelFor(model => model.estado)
+                                    @Html.TextBoxFor(model => model.estado, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.estado)
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    @Html.LabelFor(model => model.cep)
+                                    @Html.TextBoxFor(model => model.cep, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.cep)
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <p style="font-size:18px; color:red">@ViewBag.Message</p>
+                                <div class="form-group ccol-sm-6">
+                                    <p>
+                                        <input type="submit" value="Atualizar" class="form-control btn-outline-primary" />
+                                    </p>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </fieldset>
+
+   
+
+    
+
+
+}

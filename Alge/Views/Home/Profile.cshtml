@@ -34,35 +34,45 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-md-offset-1 col-sm-4">
-                    <form class="form">
+                    <form class="form-row">
                         <div class="form-group loginInputs">
 
                             <p class="form-text-view">@Model.Id</p>
 
                             <p class="form-text-view">@Model.Email</p>
+                            <div class="form-row">
 
-                            @Html.HiddenFor(model => model.Id)
-                            @Html.HiddenFor(model => model.Email)
+                                <div class="form-group col-sm-3">
 
-                            @Html.Label("Nome")
-                            @Html.TextBoxFor(model => model.Name, new { @class = "global-form-style", placeholder = "Nome", @Value = Model.Name })
-                            @Html.ValidationMessageFor(model => model.Name)<br />
+                                    @Html.HiddenFor(model => model.Id)
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    @Html.HiddenFor(model => model.Email)
+                                </div>
+                            </div>
+                            <div class="form-row">
+
+                                @Html.Label("Nome")
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Nome", @Value = Model.Name })
+                                @Html.ValidationMessageFor(model => model.Name)<br />
 
 
+                            </div>
+                            <div class="form-row">
+
+                                @Html.Label("Telefone")
+                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "Telefone", @Value = Model.Phone })
+                                @Html.ValidationMessageFor(model => model.Phone)<br />
+                            </div>
 
 
-                            @Html.Label("Telefone")
-                            @Html.TextBoxFor(model => model.Phone, new { @class = "global-form-style", placeholder = "Telefone", @Value = Model.Phone })
-                            @Html.ValidationMessageFor(model => model.Phone)<br />
-
-
-
-                            <p style="font-size:18px; color:red">@ViewBag.Message</p>
-                            <p>
-                                <input type="submit" value="Atualizar" class="global-form-style" />
-                            </p>
-                        </div>
-                    </form>
+                                <p style="font-size:18px; color:red">@ViewBag.Message</p>
+                                <p>
+                                    <input type="submit" value="Atualizar"  class="form-control btn-outline-primary" />
+                                </p>
+                            </div>
+</form>
                 </div>
             </div>
         </div>

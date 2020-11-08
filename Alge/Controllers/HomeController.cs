@@ -128,6 +128,7 @@ namespace Alge.Controllers
             
             
             List<Order> orders = new Order().GetAllUserOrders(AlgeCookieController.UserID);
+
             ViewBag.orders = orders;
         
 
@@ -274,6 +275,26 @@ namespace Alge.Controllers
         {
             UserProfileModel model = UserProcedures.GetProfileModel(AlgeCookieController.UserID);
             return View(model);
+        }
+        [CredentialsFilter(Order = 1)]
+        public IActionResult Faturamento()
+        {
+            RegisterModel model = UserProcedures.GetDadosFaturamento(AlgeCookieController.UserID);
+            return View(model);
+
+        }
+        [CredentialsFilter(Order = 1)]
+        [HttpPost]
+        public IActionResult Faturamento(RegisterModel model)
+        {
+
+            var dadosFaturamento = UserProcedures.RegisterFaturamento(model, AlgeCookieController.UserID);
+         
+
+            return View(dadosFaturamento);
+
+
+
         }
         public ActionResult LogOut()
         {

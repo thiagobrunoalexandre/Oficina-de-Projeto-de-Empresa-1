@@ -10,73 +10,76 @@
 
 
 <div class="container">
-    <div class="row" style="margin: 3% 0 10% 0;">
-        <div style="margin-bottom: 20px;" class="row">
-            <div class="col-md-12"><h2>Detalhes</h2></div>
-        </div>
-
-
-        @foreach (Produto produto in Produtos)
-        {@using (Html.BeginForm())
-            {
-                <div class="col-md-6 ">
-                    <form class="form">
-                        <div class="form-group loginInputs">
-
-                            <p class="form-text-view">Personalize seu produto</p>
-                            @Html.Label("Quantidade")
-                            @Html.TextBoxFor(model => model.quantidade_produto, new { @class = "global-form-style", placeholder = "Quantidade", })
-                            @Html.ValidationMessageFor(model => model.quantidade_produto)
-                            <br />
-                            @Html.Label("Texto personalizado")
-                            @Html.TextBoxFor(model => model.texto_personalizado, new { @class = "global-form-style", placeholder = "Texto", })
-                            @Html.ValidationMessageFor(model => model.texto_personalizado)
+    <div style="margin-bottom: 20px;" class="row">
+        <div class="col-md-4 col-md-offset-4"><h2>Personalização</h2></div>
+    </div>
+        <div class="col-md-12 my-5">
+            <div class="form-row">
 
 
 
+                @foreach (Produto produto in Produtos)
+                {
+                <div class="form-group col-sm-8">
+                    @using (Html.BeginForm())
+                    {
 
-                            <p style="font-size:30px; color:red">@ViewBag.Message</p>
-                            <p>
-                                <input type="submit" name="@produto.id_produto" value="Addcarrinho" class="global-form-style" />
-                            </p>
-                        </div>
-                    </form>
+                        <p class="form-text-view">Personalize seu produto</p>
+                        @Html.Label("Quantidade")
+                        @Html.TextBoxFor(model => model.quantidade_produto, new { @class = "form-control", placeholder = "Quantidade", })
+                        @Html.ValidationMessageFor(model => model.quantidade_produto)
+                        <br />
+                        @Html.Label("Texto personalizado")
+                        @Html.TextAreaFor(model => model.texto_personalizado, new { @class = "form-control", placeholder = "Texto", })
+                        @Html.ValidationMessageFor(model => model.texto_personalizado)
+
+
+
+
+                        <p style="font-size:30px; color:red">@ViewBag.Message</p>
+                        <p>
+                            <input style="max-width:300px;" type="submit" name="@produto.id_produto" value="Addcarrinho" class="form-control btn-outline-info" />
+                        </p>
+
+
+                    }
+                    </div>
+
+                <div class="form-group col-sm-4">
+
+
+
+                    <h5 class="card-title">@produto.nome</h5>
+                    <div class="card-body">
+
+                        <img src="@produto.imagem" runat="server" style="max-width:200px; max-height:120px" />
+
+
+
+                        <p>Cod: @produto.id_produto</p>
+                        <p>@produto.descricao</p>
+                        <p>@String.Format("R$ {0:N2}", @produto.preco)</p>
+                        <p>Categoria @produto.categoria</p>
+
+
+
+                    </div>
+
+
+
                 </div>
+
 
             }
-        <div class="col-md-6">
-
-            
-
-                <h5 class="card-title">@produto.nome</h5>
-                <div class="card-body">
-
-                    <img src="@produto.imagem" runat="server" style="max-width:200px; max-height:120px" />
 
 
 
-                    <p>Cod: @produto.id_produto</p>
-                    <p>@produto.descricao</p>
-                    <p>R$ @produto.preco</p>
-                    <p>Categoria @produto.categoria</p>
 
-
-
-                </div>
-
-            
+            </div>
 
         </div>
-
-
-    }
-
-
-
-
     </div>
 
-</div>
-
+   
 
 

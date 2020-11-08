@@ -98,6 +98,54 @@ namespace Alge.Procedures
             }
         }
 
+        public static RegisterModel RegisterFaturamento(RegisterModel model,int userID) 
+        {
+            if (FaturamentoExist(userID))
+            {
+
+                using (CallDB db = new CallDB())
+                {
+
+                    new UsersQuery(db).UpdateDadosFaturamento(model,userID);
+
+
+                   
+                }
+
+
+            }
+            else
+            {
+
+
+            }
+            var Dados = GetDadosFaturamento(AlgeCookieController.UserID);
+            return Dados;
+        }
+        public static bool FaturamentoExist(int userID)
+        {
+            List<string> columns = new List<string>();
+            List<string> values = new List<string>();
+
+           
+            ListHelper.AddKey(ref columns, ref values, "fk_usuario", userID.ToString());
+            bool retorno = new DMLQuery(new CallDB()).ExistData("usuario_fatuamento", columns, values);
+
+            return retorno;
+        }
+        public static RegisterModel GetDadosFaturamento(int userID)
+        {
+            using (CallDB db = new CallDB())
+            {
+
+                var dadosFaturamento = new UsersQuery(db).GetFaturamento(userID);
+                if (dadosFaturamento == null)
+                {
+                    return new RegisterModel();
+                }
+                return dadosFaturamento;
+            }
+        }
 
 
         public static Tuple<int, bool, string> VerifyRecoveryCode(string code)
@@ -126,15 +174,7 @@ namespace Alge.Procedures
 
         
 
-        public static Produto ProdutoDetails(string textopersonalizado, int Id)
-        {
-            
-
-            
         
-            return null;
-        }
-
         
 
     }
