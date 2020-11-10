@@ -1,4 +1,5 @@
 ﻿using Alge.Models;
+using Alge.Models.Admin;
 using Alge.Models.Produto;
 using Alge.Procedures;
 using MySql.Data.MySqlClient;
@@ -26,8 +27,9 @@ namespace Alge.DAO.Query
 
         public int RegisterUser(RegisterModel model)
         {
+            string fk_usuario = "1";
             MySqlCommand comm = new MySqlCommand("", db.conexao);
-            comm.CommandText = String.Format("INSERT INTO usuario(nome ,email,password_hash, DataInsercao , telefone ,fk_usuario_tipo ) VALUES('{0}', '{1}', '{2}','{3}','{4}','{5}'); SELECT LAST_INSERT_ID() as ID",model.Name , model.Email, model.Register_PasswordHash, DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), model.MobilePhone , 1);// 1 usuario comum
+            comm.CommandText = String.Format("INSERT INTO usuario(nome ,email,password_hash, DataInsercao , telefone ,fk_usuario_tipo ) VALUES('{0}', '{1}', '{2}','{3}','{4}','{5}'); SELECT LAST_INSERT_ID() as ID",model.Name , model.Email, model.Register_PasswordHash, DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), model.MobilePhone , fk_usuario);// 1 usuario comum
 
             try
             {
@@ -92,6 +94,73 @@ namespace Alge.DAO.Query
                 db.conexao.Close();
             }
         }
+
+        public List<UserModel> ReturnListUserData(string where, string like1, string like2 = "")
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = (String.Format("SELECT * FROM usuario WHERE {0} LIKE @_like1 OR {0} LIKE @_like2", where));
+            comm.Parameters.AddWithValue("@_like1", like1);
+            if (like2 == "")
+            {
+                like2 = like1;
+            }
+            comm.Parameters.AddWithValue("@_like2", like2);
+
+            List<UserModel> usersList = new List<UserModel>();
+
+            try
+            {
+                db.conexao.Open();
+                MySqlDataReader reader = comm.ExecuteReader();
+                while (reader.Read())
+                {
+                    usersList.Add(new UserModel
+                    {
+                        ID = reader.GetInt32("id_usuario"),
+                        EmailRegister = reader.GetString("email"),
+                        NivelPermissao = reader.GetString("fk_usuario_tipo")
+                    });
+                }
+                return usersList;
+            }
+            catch (Exception e)
+            {
+                db.conexao.Close();
+                return usersList;
+            }
+            finally
+            {
+                db.conexao.Close(); //Fechando a conexão
+            }
+        }
+
+        
+
+        internal bool Login(string emailLogin, string passwordHashed)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = ("SELECT * FROM usuario WHERE email = @email and password_hash = @password_hash");
+            comm.Parameters.AddWithValue("@email", emailLogin);
+            comm.Parameters.AddWithValue("@password_hash", passwordHashed);
+
+            try
+            {
+                db.conexao.Open();
+                MySqlDataReader reader = comm.ExecuteReader();
+                reader.Read();
+                return reader.HasRows;
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+        }
+
         public void UpdateDadosFaturamento(RegisterModel model, int ID_usuario)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);
@@ -368,15 +437,15 @@ namespace Alge.DAO.Query
         public int GetUserID(string login_Email)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);
-            comm.CommandText = ("SELECT * FROM CLIENTES_User WHERE CLIENTES_User_email = @CLIENTES_User_email");
-            comm.Parameters.AddWithValue("@CLIENTES_User_email", login_Email);
+            comm.CommandText = ("SELECT * FROM usuario WHERE email = @email");
+            comm.Parameters.AddWithValue("@email", login_Email);
             try
             {
                 db.conexao.Open();
 
                 MySqlDataReader reader = comm.ExecuteReader();
                 reader.Read();
-                return reader.GetInt32("ID_CLIENTES_User");
+                return reader.GetInt32("id_usuario");
 
             }
             catch (Exception e)

@@ -162,29 +162,7 @@ namespace Alge.Procedures
         }
 
 
-        public static Tuple<int, bool, string> VerifyRecoveryCode(string code)
-        {
-            int userID;
-            string userEmail;
-            bool found = false;
-            using (CallDB db = new CallDB())
-            {
-
-                userEmail = new DMLQuery(db).GetData("CLIENTES_User_email", "CLIENTES_User", "CLIENTES_User_recovery_code", code);
-                db.conexao.Close();
-
-                userID = new UsersQuery(db).GetUserID(userEmail);
-                found = !String.IsNullOrEmpty(userEmail) && !String.IsNullOrEmpty(userID.ToString());
-            }
-            if (found)
-            {
-                return new Tuple<int, bool, string>(userID, found, userEmail);
-            }
-            else
-            {
-                return new Tuple<int, bool, string>(0, false, "");
-            }
-        }
+       
 
         
 

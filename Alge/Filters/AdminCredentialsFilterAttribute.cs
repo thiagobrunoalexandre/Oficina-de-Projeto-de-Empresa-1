@@ -1,4 +1,5 @@
 ﻿
+using Alge.Classes_Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Primitives;
@@ -15,7 +16,7 @@ namespace Alge
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-          /*  if (AdminCookieController.AdminID == 0)
+            if (AdminCookieController.AdminID == 0)
             {
                 context.Result = new RedirectToActionResult("Login", "Admin",null);
             }
