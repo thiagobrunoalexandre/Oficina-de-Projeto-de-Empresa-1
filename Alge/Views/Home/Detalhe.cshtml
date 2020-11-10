@@ -26,7 +26,7 @@
 
                         <p class="form-text-view">Personalize seu produto</p>
                         @Html.Label("Quantidade")
-                        @Html.TextBoxFor(model => model.quantidade_produto, new { @class = "form-control", placeholder = "Quantidade", })
+                        @Html.TextBoxFor(model => model.quantidade_produto, new { @class = "form-control", placeholder = "Quantidade", @id="qtd", maxlength = "11"  })
                         @Html.ValidationMessageFor(model => model.quantidade_produto)
                         <br />
                         @Html.Label("Texto personalizado")
@@ -78,8 +78,16 @@
             </div>
 
         </div>
-    </div>
+ </div>
 
-   
+   <script>
+
+
+       $(document).ready(function () {
+           $("#qtd").keyup(function () {
+               $("#qtd").val(this.value.match(/[0-9]*/));
+           });
+       });
+   </script>
 
 

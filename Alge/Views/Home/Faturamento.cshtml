@@ -34,13 +34,13 @@
                     </div>
                 </div>
                 <div class="col-md-8 col-md-offset-1 col-sm-8">
-                  
+
                     <div class="form-group loginInputs">
                         <form>
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
                                     @Html.LabelFor(model => model.cpf)
-                                    @Html.TextBoxFor(model => model.cpf, new { @class = "form-control" })
+                                    @Html.TextBoxFor(model => model.cpf, new { @class = "form-control", placeholder = "Apenas números" ,@id = "cpf" , maxlength = "11" , pattern = "([0-9]{11})" })
                                     @Html.ValidationMessageFor(model => model.cpf)
 
 
@@ -80,7 +80,7 @@
 
                                 <div class="form-group col-sm-3">
                                     @Html.LabelFor(model => model.cep)
-                                    @Html.TextBoxFor(model => model.cep, new { @class = "form-control" })
+                                    @Html.TextBoxFor(model => model.cep, new { @class = "form-control" , placeholder = "Apenas números", @id = "cep", maxlength = "8", pattern = "([0-9]{8})" })
                                     @Html.ValidationMessageFor(model => model.cep)
                                 </div>
                             </div>
@@ -91,16 +91,35 @@
                                         <input type="submit" value="Atualizar" class="form-control btn-outline-primary" />
                                     </p>
                                 </div>
-
+                                @if (ViewBag.MessageRegister != null)
+                                {
+                                    <div class="alert alert-danger" role="alert">
+                                        @ViewBag.MessageRegister
+                                    </div>
+                                }
                             </div>
                         </form>
                     </div>
                 </div>
-        </div>
+               
+            </div>
     </fieldset>
 
    
+    <script>
 
+
+        $(document).ready(function () {
+            $("#cpf").keyup(function () {
+                $("#cpf").val(this.value.match(/[0-9]*/));
+            });
+        });
+        $(document).ready(function () {
+            $("#cep").keyup(function () {
+                $("#cep").val(this.value.match(/[0-9]*/));
+            });
+        });
+    </script>
     
 
 

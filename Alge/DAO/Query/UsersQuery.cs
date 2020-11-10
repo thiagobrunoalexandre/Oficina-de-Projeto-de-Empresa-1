@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using static CallDB;
 
 namespace Alge.DAO.Query
 {
@@ -121,7 +122,29 @@ namespace Alge.DAO.Query
                 db.conexao.Close();
             }
         }
+        public void inserirFaturamento(RegisterModel model, int ID_usuario)
+        {
 
+           
+
+                List<string> columns = new List<string>();
+                List<string> values = new List<string>();
+
+                ListHelper.AddKey(ref columns, ref values, "fk_usuario", ID_usuario.ToString());
+                ListHelper.AddKey(ref columns, ref values, "endereco", model.endereco);
+                ListHelper.AddKey(ref columns, ref values, "numero_endereco", model.numero_endereco);
+                ListHelper.AddKey(ref columns, ref values, "complemento_endereco", model.complemento);
+                ListHelper.AddKey(ref columns, ref values, "cidade",model.cidade);
+                ListHelper.AddKey(ref columns, ref values, "estado", model.estado); 
+                ListHelper.AddKey(ref columns, ref values, "cep", model.cep);
+                ListHelper.AddKey(ref columns, ref values, "cpf", model.cpf.ToString());
+
+                CallDB db = new CallDB(DBSource.Alge_db);
+                db.InsertData("usuario_fatuamento", columns, values);
+
+               
+            
+        }
         public List<Produto> ReturnProdutos()
         {
            

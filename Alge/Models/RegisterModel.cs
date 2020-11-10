@@ -102,6 +102,61 @@ namespace Alge.Models
 
             return ((name && email && password && telefone),"true");
         }
+        
+        public (bool valid, string message) ValidateFaturamento()
+        {
+
+                int cpfdMinimuMSize = 11;
+
+
+                bool endereco = !String.IsNullOrEmpty(this.endereco);
+                bool numero_endereco = !String.IsNullOrEmpty(this.numero_endereco);
+                bool complemento = !String.IsNullOrEmpty(this.complemento);
+                bool cidade = !String.IsNullOrEmpty(this.cidade);
+                bool estado = !String.IsNullOrEmpty(this.estado);
+                bool cep = !String.IsNullOrEmpty(this.cep);
+                bool cpf = !String.IsNullOrEmpty(this.cpf);
+
+
+
+
+
+            if (!cpf)
+            {
+                return (cpf, "insira um cpf");
+            }
+            if (!endereco)
+            {
+                return (endereco, "insira um endereço");
+            }
+            if (!numero_endereco)
+            {
+                return (numero_endereco, "insira o número do endereço");
+            }
+            if (!complemento)
+            {
+                return (complemento, "insira um complemento ou N ");
+            }
+            if (!cidade)
+            {
+                return (cidade, "insira o nome da sua cidade");
+            }
+            if (!estado)
+            {
+                return (estado, "insira o nome do seu estado");
+            }
+            if (!cep)
+            {
+                return (cep, "insira um cep");
+            }
+
+
+
+
+
+            return ((endereco && numero_endereco && complemento && cidade && estado && cep && cpf), "true");
+            
+        }
 
         
     }

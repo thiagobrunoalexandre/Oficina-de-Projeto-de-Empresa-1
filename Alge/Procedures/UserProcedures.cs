@@ -97,9 +97,10 @@ namespace Alge.Procedures
                 return profile;
             }
         }
-
+        
         public static RegisterModel RegisterFaturamento(RegisterModel model,int userID) 
         {
+           
             if (FaturamentoExist(userID))
             {
 
@@ -117,6 +118,14 @@ namespace Alge.Procedures
             else
             {
 
+                using (CallDB db = new CallDB())
+                {
+                    
+                    new UsersQuery().inserirFaturamento(model, userID);
+
+                   
+                   
+                }
 
             }
             var Dados = GetDadosFaturamento(AlgeCookieController.UserID);
@@ -135,15 +144,20 @@ namespace Alge.Procedures
         }
         public static RegisterModel GetDadosFaturamento(int userID)
         {
+
             using (CallDB db = new CallDB())
             {
-
-                var dadosFaturamento = new UsersQuery(db).GetFaturamento(userID);
-                if (dadosFaturamento == null)
+                if (FaturamentoExist(userID))
                 {
-                    return new RegisterModel();
+                    var dadosFaturamento = new UsersQuery(db).GetFaturamento(userID);
+                    return dadosFaturamento;
                 }
-                return dadosFaturamento;
+                else
+                {
+                    var dadosFaturamento = new RegisterModel();
+                    return dadosFaturamento;
+                }
+               
             }
         }
 

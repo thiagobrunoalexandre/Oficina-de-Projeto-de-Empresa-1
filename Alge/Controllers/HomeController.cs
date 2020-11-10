@@ -287,12 +287,22 @@ namespace Alge.Controllers
         [HttpPost]
         public IActionResult Faturamento(RegisterModel model)
         {
+            var Validation = model.ValidateFaturamento();
 
-            var dadosFaturamento = UserProcedures.RegisterFaturamento(model, AlgeCookieController.UserID);
-         
+            if (Validation.valid)
+            {
 
-            return View(dadosFaturamento);
+                var dadosFaturamento = UserProcedures.RegisterFaturamento(model, AlgeCookieController.UserID);
 
+
+                return View(dadosFaturamento);
+            }
+            else
+            {
+                ViewBag.MessageRegister = Validation.message;
+                return View(model);
+
+            }
 
 
         }

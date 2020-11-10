@@ -42,7 +42,7 @@
                         </li>
                         <li class="nav-item">
 
-                        <a href="@Url.Action("Index","Checkout")"><i class="fa fa-shopping-cart" aria-hidden="true" style="color:white"></i> Carrinho (@CartCookieController.ReturnCartProductsCount())</a>
+                            <a class="nav-link" href="@Url.Action("Index","Checkout")">Carrinho (@CartCookieController.ReturnCartProductsCount())</a>
 
                         </li>
 
@@ -57,10 +57,18 @@
                             <li>@Html.ActionLink("Carrinho", "Index", "Checkout")</li>
                             <li>@Html.ActionLink("Sair", "Logout", "Home")</li>
                         </ul>
-                    </li> }
-                                else
-                                {
-                    <li class="nav-link">@Html.ActionLink("Fazer Login/Criar conta", "Login", "Home", new { t = 2 }, new { @class = "nav-bar-item-margin" })</li>}
+                    </li>
+ }
+                else
+                {
+                    <li class="nav-item">
+
+                        @Html.ActionLink("Fazer Login/Criar conta", "Login", "Home", new { t = 2 })
+
+                    </li>
+}
+
+
 
 
                     </ul>

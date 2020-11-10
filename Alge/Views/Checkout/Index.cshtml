@@ -9,20 +9,20 @@
 }
 @using Alge;
 @using Alge.DAO.Query;
+@using (Html.BeginForm("Index", "Checkout", FormMethod.Post, new { @id = "validate-form" }))
+{
+    <div class="container">
 
-<div class="container">
-    
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-12" style="padding: 3% 0"><h4 class="global-text-title"><i class="fa fa-shopping-cart" style="color:#bd053b; font-size:1.3em; margin-right:1%;" aria-hidden="true"></i>Confirme seu pedido</h4></div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12" style="padding: 3% 0"><h4 class="global-text-title"><i class="fa fa-shopping-cart" style="color:#bd053b; font-size:1.3em; margin-right:1%;" aria-hidden="true"></i>Confirme seu pedido</h4></div>
+            </div>
         </div>
-    </div>
-    <div class="col-md-12">
-        <div class="form-row">
-            <div class="form-group col-sm-8">
-                <div class="col-md-6">
-                    @using (Html.BeginForm("Index", "Checkout", FormMethod.Post, new { @id = "validate-form" }))
-                    {
+        <div class="col-md-12">
+            <div class="form-row">
+                <div class="form-group col-sm-8">
+                    <div class="col-md-6">
+
                         <table class="table">
                             <tr>
 
@@ -61,58 +61,60 @@
 
                             }
                         </table>
-                    }
-                </div>
-            </div>
-            <div class="form-group col-sm-4">
-
-                <table class="table">
-
-                    <tr>
-
-
-
-                        <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;">Valor total do seu pedido</th>
-                    </tr>
-                    <tr>
-                        <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;"></th>
-                        <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;"></th>
-
-                        <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;">@String.Format("R$ {0:N2}", cart.CartTotalAmount)</th>
-
-                    </tr>
-
-                </table>
-
-
-
-
-
-
-                @if (cart.Product.Count() >= 1)
-                {
-                    <div class="col-md-5">
-                        <input type="submit" style="float:left" value="Confirmar pedido" class="btn btn-lg btn-success">
+                        
                     </div>
+                </div>
+                <div class="form-group col-sm-4">
 
-                }
+                    <table class="table">
+
+                        <tr>
 
 
+
+                            <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;">Valor total do seu pedido</th>
+                        </tr>
+                        <tr>
+                            <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;"></th>
+                            <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;"></th>
+
+                            <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;">@String.Format("R$ {0:N2}", cart.CartTotalAmount)</th>
+
+                        </tr>
+
+                    </table>
+
+
+
+
+
+
+                    @if (cart.Product.Count() >= 1)
+                    {
+                        <div class="col-md-5">
+                            <input type="submit" style="float:left" value="Confirmar pedido" class="btn btn-lg btn-success">
+                        </div>
+
+                    }
+
+
+
+                </div>
 
             </div>
+
+
+
+
+
+
+
+
+
 
         </div>
 
 
-
-
-
-
-
-
-
-
-     </div>
-
-
-</div>
+    </div>
+    
+   }
