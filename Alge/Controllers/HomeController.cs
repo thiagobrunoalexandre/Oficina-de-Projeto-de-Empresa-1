@@ -107,7 +107,7 @@ namespace Alge.Controllers
              if (ModelState.IsValid)
             {
                 UserProcedures.ChangePassword(model.NewPassword, AlgeCookieController.UserID);
-                ViewBag.Message = "Senha alerada com sucesso!!";
+                ViewBag.Message = "Senha alterada com sucesso!!";
                 return View();
             }
             else

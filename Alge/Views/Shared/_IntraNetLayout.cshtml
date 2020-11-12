@@ -1,0 +1,84 @@
+﻿@using Alge
+@using Alge.Classes_Cookies
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/node_modules/bootstrap/compiler/bootstrap.css">
+    <link rel="stylesheet" href="~/node_modules/bootstrap/compiler/style.css">
+    <link rel="stylesheet" href="~/page_index.css">
+    <script src="~/scripts/Utilitarios/InactivityHelper.js"></script>
+    <link href="~/css/bootstrap.css" rel="stylesheet">
+    <link href="~/css/Style-StockPhotos.css" rel="stylesheet">
+    <script src="https://use.fontawesome.com/753231282c.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- A Biblioteca jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- O Javascript compilado -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="~/FileUploadFramework/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/FileUploadFramework/Scripts/jquery-ui-1.11.4.js"></script>
+
+    <script src="~/scripts/MaskPlugin/MaskPlugin.js"></script>
+    <script src="~/scripts/MaskPlugin/MaskPlugin2.0.js"></script>
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")?1" />
+    <title>@ViewBag.Title -  Alge Admin</title>
+
+
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row" style="margin-bottom:10px; border-bottom:3px solid black">
+            <div class="col-md-4 col-md-offset-4">
+                <h1 style="text-align:center;">Painel Administrativo</h1>
+            </div>
+            <div class="text-right col-md-4" style="padding-top:33px; padding-bottom:10px">Bem vindo @AdminCookieController.AdminEmail   &emsp;  @Html.ActionLink("Sair", "Logout", "Admin")</div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-3">
+                    <ul>
+                        <li>
+                            Clientes
+                            <ul>
+                                <li>@Html.ActionLink("Clientes", "Clientes", "Admin")</li>
+                            </ul>
+                            
+                        </li>
+                      
+                        <li>
+                            Produtos
+                            <ul>
+                                <li>@Html.ActionLink("Ver Produtos", "Produtos", "Admin")</li>
+                                <li>@Html.ActionLink("Cadastrar Produtos", "CadastrarProduto", "Admin")</li>
+                            </ul>
+                        </li>
+                        
+                    </ul>
+            </div>
+
+            <div class="col-md-offset-1 col-md-6">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

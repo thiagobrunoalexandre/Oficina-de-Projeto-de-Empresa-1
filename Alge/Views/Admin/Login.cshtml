@@ -1,0 +1,59 @@
+﻿@model Alge.Models.Admin.UserModelLogin
+@{
+    ViewBag.Title = "Intranet";
+    Layout = "~/Views/Shared/_IntraNetLayoutLogin.cshtml";
+}
+
+
+
+
+
+
+
+    @using (Html.BeginForm())
+    {
+
+        <div id="tela-login">
+            <div class="card-body">
+                <form>
+
+                    <div class="form-row">
+                        <div class="form-group col-sm-12">
+                            E-mail
+                            @Html.TextBoxFor(m => m.EmailLogin, null, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.EmailLogin, null, new { @class = "error-message" })<br />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12">
+                            Senha
+                            @Html.PasswordFor(m => m.PasswordLogin, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.PasswordLogin, null, new { @class = "error-message" })<br />
+                        </div>
+                    </div>
+                    <div class="form-row">
+
+
+                        <div class="form-group col-sm-6">
+                            <button type="submit" class="form-control btn-outline-primary">Login</button>
+                        </div>
+                        <p style="color:red">@ViewBag.Message</p>
+                    </div>
+                </form>
+                
+            </div>
+           
+        </div>
+
+
+
+        <script src="~/node_modules/jquery/dist/jquery.js"></script>
+        <script src="~/node_modules/popper.js/dist/umd/popper.js"></script>
+        <script src="~/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+
+
+
+
+
+    }

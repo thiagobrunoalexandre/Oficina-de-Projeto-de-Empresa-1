@@ -1,0 +1,53 @@
+﻿@using Alge.Controllers
+@using System.Collections.Generic
+@using Alge.Models.Admin
+
+@{
+    ViewBag.Title = "Clientes";
+    Layout = "~/Views/Shared/_IntraNetLayout.cshtml";
+    List<UserModel> UsersList = ViewBag.UsersList;
+}
+
+@using (Html.BeginForm())
+{
+<form>
+    <h4>Digite o email do cliente</h4>
+    Email: <input class="form-control width-300" style="margin-bottom:10px" type="text" name="SearchEmail">
+
+    <br />
+
+    
+    <br />    
+    @if(ViewBag.Message != null)
+    {
+        <p style="color:red" class="error-message">@ViewBag.Message</p>
+    }
+    <input type="submit" value="Buscar" class="btn btn-primary requested" />
+</form>
+}
+
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>ID usuário</th>
+            <th>Email/Login usuário</th>
+            <th>Nível Permissão</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (UserModel user in UsersList ?? Enumerable.Empty<UserModel>())
+        {
+            <tr>
+                <td>@user.ID</td>
+                <td>@user.EmailRegister</td>
+                <td>@user.NivelPermissao</td>
+                <td>@Html.ActionLink("Ver/editar PEDIDOS", "Orders", "Admin", new { id = user.ID }, new { @class = "btn btn-primary", target = "_blank" })</td>
+                <td>@Html.ActionLink("Logar", "Logar", "Admin", new { id = user.ID, email = user.EmailRegister }, new { @class = "btn btn-primary", target = "_blank" })</td>
+            </tr>
+        }
+    </tbody>
+</table>
