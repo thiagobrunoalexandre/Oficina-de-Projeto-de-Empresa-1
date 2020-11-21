@@ -151,6 +151,8 @@ namespace Alge.Controllers
 
                 if (model.Exist())
                 {
+                  
+                    
                     using (var db = new CallDB())
                     {
                         db.conexao.Open();

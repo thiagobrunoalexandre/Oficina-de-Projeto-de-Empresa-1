@@ -311,6 +311,46 @@ namespace Alge.DAO.Query
 
 
         }
+        public Produto ReturnProdutoDetalhe(int id)
+        {
+
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = String.Format("SELECT * FROM produto WHERE idProduto = {0};", id);
+            try
+            {
+
+
+
+
+                db.conexao.Open();
+                using (MySqlDataReader reader = comm.ExecuteReader())
+                {
+                    reader.Read();
+                    return new Produto
+                    {
+                        id_produto = reader.GetInt32("idProduto"),
+                        nome = reader.GetString("nome"),
+                        quantidade = reader.GetInt32("quantidade"),
+                        descricao = reader.GetString("descricao"),
+                        preco = reader.GetDouble("preco"),
+                        categoria = reader.GetInt32("fk_categoria"),
+                        imagem = reader.GetString("imagem_url"),
+                    };
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Erro na consulta GetPoolObjects: {0}", e.Message);
+                return null;
+            }
+            finally
+            {
+                db.conexao.Close(); //Fechando a conexão
+            }
+
+
+        }
         public Produto ReturnProdutos(int id)
         {
 

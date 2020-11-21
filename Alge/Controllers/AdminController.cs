@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Alge.DAO.Query;
 using Alge.Procedures;
 using Alge.Models;
+using Alge.Models.Produto;
 
 namespace Alge.Controllers
 {
@@ -123,7 +124,34 @@ namespace Alge.Controllers
                 return Json(new { message = "Pedido não existe" });
             }
         }
-            [AdminCredentialsFilter(Order = 1)]
+        [AdminCredentialsFilter(Order = 1)]
+        [HttpGet("/Admin/EditarProduto/{Id}")]
+        public IActionResult EditarProduto(int Id)
+        {
+            Produto model = new UsersQuery().ReturnProdutoDetalhe(Id);
+            return View(model);
+        }
+        [AdminCredentialsFilter(Order = 1)]
+        [HttpPost]
+        public IActionResult EditarProduto(Produto model, int Id , IList<IFormFile> Imagem)
+        {
+          
+
+
+            return RedirectToAction("Produto", "Home");
+        }
+        [AdminCredentialsFilter(Order = 1)]
+        public ActionResult Produto(string idCarrinho = "")
+        {
+
+            ViewBag.carrinho = idCarrinho;
+            ViewBag.produtos = new UsersQuery().ReturnProdutos();
+
+
+            return View();
+        }
+
+        [AdminCredentialsFilter(Order = 1)]
 
         public ActionResult Logar(string id, string email)
         {

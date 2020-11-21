@@ -532,3 +532,5 @@ C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Clientes.cshtml.g.cs
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Orders.cshtml.g.cs
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Produto.cshtml.g.cs
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Admin\EditarProduto.cshtml.g.cs
