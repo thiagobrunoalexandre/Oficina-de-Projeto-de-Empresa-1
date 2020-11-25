@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "7kfPCbuRHfEO4olJKTreNfjUbnnEETh9ECNVkHuTjFOQqSUvqI+KWDLfNFcyJ/PCCvLn19HJO7XAn3W8h60XmQ==",
+  "dgSpecHash": "lp6iIR/466W8J0pC8M0/BK+h+uZWync4hsTsedJY0nG8JPFQFYs88r0IGjqim+MDgoGVV3RVLuWj2c6rbi4Wmg==",
   "success": true,
   "projectFilePath": "C:\\git\\Oficina-de-Projeto-de-Empresa-1\\Alge\\Alge.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Thiago Alexandre\\.nuget\\packages\\magick.net-q16-anycpu\\7.22.2.1\\magick.net-q16-anycpu.7.22.2.1.nupkg.sha512",
+    "C:\\Users\\Thiago Alexandre\\.nuget\\packages\\magick.net.core\\5.2.1\\magick.net.core.5.2.1.nupkg.sha512",
     "C:\\Users\\Thiago Alexandre\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.2\\microsoft.aspnetcore.jsonpatch.3.1.2.nupkg.sha512",
     "C:\\Users\\Thiago Alexandre\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.2\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.2.nupkg.sha512",
     "C:\\Users\\Thiago Alexandre\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",

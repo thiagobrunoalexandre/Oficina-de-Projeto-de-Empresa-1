@@ -45,7 +45,7 @@ namespace Alge.Models.Order
 
     public enum OrderStatus
     {
-        Aguarando_aprovacao = 1,
+        aguardando_aprovacao = 1,
         completed = 3,
         cancelado = 4,
        

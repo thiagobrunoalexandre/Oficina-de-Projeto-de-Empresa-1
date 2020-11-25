@@ -9,7 +9,7 @@
     <thead>
         <tr>
             <th>ID Pedido</th>
-            <th>Descrição Pedido</th>
+            <th>Valor Pedido</th>
             <th>Status</th>
 
             <th>Alterar o status</th>
@@ -20,34 +20,34 @@
     <tbody>
         @foreach (Order order in ViewBag.orders)
         {
-            <tr style="height:220px;">
-                <td>@order.id_pedido</td>
-                <td style="font-size:12px">@order.valor_total</td>
-                <td>@order.OrderStatus</td>
-                <td style="min-height:230px;">
-                    <nav class="navbar navbar-inverse">
+        <tr style="height:220px;">
+            <td>@order.id_pedido</td>
+            <td>@String.Format("R$ {0:N2}", @order.valor_total)</td>
+            <td>@order.OrderStatus</td>
+            <td style="min-height:230px;">
+                <nav class="navbar navbar-inverse">
 
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Status
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Status
 
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a onclick="ChangeOrderStatus(@order.id_pedido,@order.fk_usuario,@Convert.ToInt32(OrderStatus.Aguarando_aprovacao))" href="#">Aguardando aprovação de orçamento</a></li>
-                                    <li><a onclick="ChangeOrderStatus(@order.id_pedido,@order.fk_usuario,@Convert.ToInt32(OrderStatus.orcamento_aprovado))" href="#">Orçamento Aprovado</a></li>
-                                    <li><a onclick="ChangeOrderStatus(@order.id_pedido,@order.fk_usuario,@Convert.ToInt32(OrderStatus.completed))" href="#">Completado</a></li>
-                                    <li><a onclick="ChangeOrderStatus(@order.id_pedido,@order.fk_usuario,@Convert.ToInt32(OrderStatus.cancelado))" href="#">Cancelado</a></li>
-                                </ul>
-                            </li>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a onclick="ChangeOrderStatus(@order.id_pedido,@order.fk_usuario,@Convert.ToInt32(OrderStatus.aguardando_aprovacao))" href="#">Aguardando aprovação de orçamento</a></li>
+                                <li><a onclick="ChangeOrderStatus(@order.id_pedido,@order.fk_usuario,@Convert.ToInt32(OrderStatus.orcamento_aprovado))" href="#">Orçamento Aprovado</a></li>
+                                <li><a onclick="ChangeOrderStatus(@order.id_pedido,@order.fk_usuario,@Convert.ToInt32(OrderStatus.completed))" href="#">Completado</a></li>
+                                <li><a onclick="ChangeOrderStatus(@order.id_pedido,@order.fk_usuario,@Convert.ToInt32(OrderStatus.cancelado))" href="#">Cancelado</a></li>
+                            </ul>
+                        </li>
 
-                        </ul>
+                    </ul>
 
-                    </nav>
-                </td>
+                </nav>
+            </td>
 
 
-            </tr>
+        </tr>
            
         }
 

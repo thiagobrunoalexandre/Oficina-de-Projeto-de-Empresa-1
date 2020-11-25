@@ -2,6 +2,49 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "Magick.NET-Q16-AnyCPU/7.22.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Magick.NET.Core": "5.2.1"
+        },
+        "compile": {
+          "lib/netstandard20/Magick.NET-Q16-AnyCPU.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard20/Magick.NET-Q16-AnyCPU.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-musl-x64/native/Magick.Native-Q16-x64.dll.so": {
+            "assetType": "native",
+            "rid": "linux-musl-x64"
+          },
+          "runtimes/linux-x64/native/Magick.Native-Q16-x64.dll.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-x64/native/Magick.Native-Q16-x64.dll.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-x64/native/Magick.Native-Q16-x64.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/Magick.Native-Q16-x86.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      },
+      "Magick.NET.Core/5.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard20/Magick.NET.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard20/Magick.NET.Core.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.JsonPatch/3.1.2": {
         "type": "package",
         "dependencies": {
@@ -2166,6 +2209,53 @@
     }
   },
   "libraries": {
+    "Magick.NET-Q16-AnyCPU/7.22.2.1": {
+      "sha512": "wt0K+iAV3uq7vIH08eQGfhoOQC8dz+JXf4ngLYO3IAyjMC1RIOBN/UOTi0R8v6yXWW7QWdklHh5fg6BQ4r3O8g==",
+      "type": "package",
+      "path": "magick.net-q16-anycpu/7.22.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Copyright.txt",
+        "Magick.NET.icon.png",
+        "lib/net20/Magick.NET-Q16-AnyCPU.dll",
+        "lib/net20/Magick.NET-Q16-AnyCPU.xml",
+        "lib/net40/Magick.NET-Q16-AnyCPU.dll",
+        "lib/net40/Magick.NET-Q16-AnyCPU.xml",
+        "lib/netstandard13/Magick.NET-Q16-AnyCPU.dll",
+        "lib/netstandard13/Magick.NET-Q16-AnyCPU.xml",
+        "lib/netstandard20/Magick.NET-Q16-AnyCPU.dll",
+        "lib/netstandard20/Magick.NET-Q16-AnyCPU.xml",
+        "magick.net-q16-anycpu.7.22.2.1.nupkg.sha512",
+        "magick.net-q16-anycpu.nuspec",
+        "runtimes/linux-musl-x64/native/Magick.Native-Q16-x64.dll.so",
+        "runtimes/linux-x64/native/Magick.Native-Q16-x64.dll.so",
+        "runtimes/osx-x64/native/Magick.Native-Q16-x64.dll.dylib",
+        "runtimes/win-x64/native/Magick.Native-Q16-x64.dll",
+        "runtimes/win-x86/native/Magick.Native-Q16-x86.dll"
+      ]
+    },
+    "Magick.NET.Core/5.2.1": {
+      "sha512": "dAVffCAKiCdZjF/5YJejpGKSOSir/8lX0H4RhNt+mlhlXCsrmEqY947bIKIWvXZ1adHCQyYmGauT/KNMMNZIZw==",
+      "type": "package",
+      "path": "magick.net.core/5.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Copyright.txt",
+        "Magick.NET.icon.png",
+        "lib/net20/Magick.NET.Core.dll",
+        "lib/net20/Magick.NET.Core.xml",
+        "lib/net40/Magick.NET.Core.dll",
+        "lib/net40/Magick.NET.Core.xml",
+        "lib/netstandard13/Magick.NET.Core.dll",
+        "lib/netstandard13/Magick.NET.Core.xml",
+        "lib/netstandard20/Magick.NET.Core.dll",
+        "lib/netstandard20/Magick.NET.Core.xml",
+        "magick.net.core.5.2.1.nupkg.sha512",
+        "magick.net.core.nuspec"
+      ]
+    },
     "Microsoft.AspNetCore.JsonPatch/3.1.2": {
       "sha512": "fdrF8gZnWy/sAtRgV6IMRr9V6t8nfTqS6VpzPUnCqe8vFnWlJP/J45LULpQfRCuyq7Mdk1qoDOnT9S9qI0Exqw==",
       "type": "package",
@@ -7301,6 +7391,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Magick.NET-Q16-AnyCPU >= 7.22.2.1",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 3.1.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.2",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.2",
@@ -7354,6 +7445,10 @@
     "frameworks": {
       "netcoreapp3.1": {
         "dependencies": {
+          "Magick.NET-Q16-AnyCPU": {
+            "target": "Package",
+            "version": "[7.22.2.1, )"
+          },
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
             "target": "Package",
             "version": "[3.1.2, )"

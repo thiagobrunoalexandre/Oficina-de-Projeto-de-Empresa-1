@@ -48,6 +48,29 @@ namespace Alge.DAO.Query
                 db.conexao.Close();
             }
         }
+        public int RegisteProduto(Produto model,string caminhoImg)
+        {
+            string preco = model.preco.ToString();
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = String.Format("INSERT INTO produto(nome ,quantidade,preco, descricao , fk_categoria ,imagem_url ) VALUES('{0}', '{1}', '{2}','{3}','{4}','{5}'); SELECT LAST_INSERT_ID() as ID", model.nome, "1" ,preco.Replace(",","."), model.descricao,"1", caminhoImg);
+
+            try
+            {
+                db.conexao.Open();
+                MySqlDataReader reader = comm.ExecuteReader();
+                reader.Read();
+                return reader.GetInt32("ID");
+
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+        }
         public int RegisterPedido(double valorTotal,int user)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);
@@ -94,6 +117,61 @@ namespace Alge.DAO.Query
                 db.conexao.Close();
             }
         }
+        public void UpdateProduto(Produto model,string caminhoimagem,int ID)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = "UPDATE produto set nome = @nome, preco = @preco , descricao = @descricao , imagem_url = @imagem_url WHERE idProduto = @idProduto";
+
+           comm.Parameters.AddWithValue("@nome", model.nome);
+           comm.Parameters.AddWithValue("@preco", model.preco);  
+           comm.Parameters.AddWithValue("@descricao", model.descricao); 
+            comm.Parameters.AddWithValue("@imagem_url", caminhoimagem);
+           comm.Parameters.AddWithValue("@idProduto", ID);
+
+          
+
+            try
+            {
+                db.conexao.Open();
+
+                comm.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+        } 
+        public void UpdateProduto2(Produto model,int ID)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = "UPDATE produto set nome = @nome, preco = @preco , descricao = @descricao  WHERE idProduto = @idProduto";
+
+           comm.Parameters.AddWithValue("@nome", model.nome);
+           comm.Parameters.AddWithValue("@preco", model.preco);  
+           comm.Parameters.AddWithValue("@descricao", model.descricao); 
+           comm.Parameters.AddWithValue("@idProduto", ID);
+
+          
+
+            try
+            {
+                db.conexao.Open();
+
+                comm.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+        }
+
+
 
         public List<UserModel> ReturnListUserData(string where, string like1, string like2 = "")
         {

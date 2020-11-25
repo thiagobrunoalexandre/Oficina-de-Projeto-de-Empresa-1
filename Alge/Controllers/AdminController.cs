@@ -21,6 +21,7 @@ using Alge.DAO.Query;
 using Alge.Procedures;
 using Alge.Models;
 using Alge.Models.Produto;
+using ImageMagick;
 
 namespace Alge.Controllers
 {
@@ -133,12 +134,84 @@ namespace Alge.Controllers
         }
         [AdminCredentialsFilter(Order = 1)]
         [HttpPost]
-        public IActionResult EditarProduto(Produto model, int Id , IList<IFormFile> Imagem)
+        public IActionResult EditarProduto(Produto model, int Id , IList<IFormFile> Image)
         {
+
+           
+
+            if (Image.Count >= 1)
+            {    foreach (IFormFile file in Image)
+                {
+
+
+                    string imageFileName = file.FileName;
+                    string produtospasta = Path.Combine(_env.WebRootPath, "image", "produtos");
+                    string imageFilePath = Path.Combine(produtospasta, imageFileName);
+
+                    using (MagickImage image = new MagickImage(Image[0].OpenReadStream()))
+                    {
+                        image.Write(imageFilePath);
+                        new ImageOptimizer().Compress(imageFilePath);
+                    }
+                    string caminhodaimagem = "/image/produtos/" + imageFileName;
+                    model.Update(Id,caminhodaimagem);
+
+                }
+               
+
+                
+
+             
+            }
+            else
+            {
+                
+                model.Update2(Id);
+            }
           
 
 
-            return RedirectToAction("Produto", "Home");
+            return RedirectToAction("Produto", "Admin");
+        }
+
+        [AdminCredentialsFilter(Order = 1)]
+        [HttpPost]
+        public IActionResult CadastrarProduto(Produto model, IList<IFormFile> Image)
+        {
+
+
+
+            if (Image.Count >= 1)
+            {
+                foreach (IFormFile file in Image)
+                {
+
+
+                    string imageFileName = file.FileName;
+                    string produtospasta = Path.Combine(_env.WebRootPath, "image", "produtos");
+                    string imageFilePath = Path.Combine(produtospasta, imageFileName);
+
+                    using (MagickImage image = new MagickImage(Image[0].OpenReadStream()))
+                    {
+                        image.Write(imageFilePath);
+                        new ImageOptimizer().Compress(imageFilePath);
+                    }
+                    string caminhodaimagem = "/image/produtos/" + imageFileName;
+                    model.RegisterProduto(caminhodaimagem);
+                    return RedirectToAction("Produto", "Admin");
+                }
+
+
+            }
+            else
+            {
+
+             
+            }
+
+
+
+            return RedirectToAction("Produto", "Admin");
         }
         [AdminCredentialsFilter(Order = 1)]
         public ActionResult Produto(string idCarrinho = "")

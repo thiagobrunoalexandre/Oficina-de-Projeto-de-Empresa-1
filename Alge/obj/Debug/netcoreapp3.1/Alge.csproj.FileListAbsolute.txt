@@ -488,8 +488,6 @@ C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\runtimes\win
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.AssemblyInfoInputs.cache
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.AssemblyInfo.cs
-C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.csproj.CoreCompileInputs.cache
-C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.MvcApplicationPartsAssemblyInfo.cache
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.RazorAssemblyInfo.cache
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.RazorAssemblyInfo.cs
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.TagHelpers.input.cache
@@ -534,3 +532,13 @@ C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Orders.cshtml.g.cs
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Produto.cshtml.g.cs
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Admin\EditarProduto.cshtml.g.cs
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\Magick.NET-Q16-AnyCPU.dll
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\Magick.NET.Core.dll
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\runtimes\linux-musl-x64\native\Magick.Native-Q16-x64.dll.so
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\Magick.Native-Q16-x64.dll.so
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\runtimes\osx-x64\native\Magick.Native-Q16-x64.dll.dylib
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Magick.Native-Q16-x64.dll
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Magick.Native-Q16-x86.dll
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.csproj.CoreCompileInputs.cache
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.MvcApplicationPartsAssemblyInfo.cache
+C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CadastrarProduto.cshtml.g.cs

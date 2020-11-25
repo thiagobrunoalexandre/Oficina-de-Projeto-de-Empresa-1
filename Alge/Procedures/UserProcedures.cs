@@ -43,10 +43,6 @@ namespace Alge.Procedures
 
 
 
-                if (model.ID == 0)
-                {
-                    throw new Exception();
-                }
 
 
 

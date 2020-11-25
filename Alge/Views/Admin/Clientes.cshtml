@@ -41,13 +41,13 @@
 
         @foreach (UserModel user in UsersList ?? Enumerable.Empty<UserModel>())
         {
-            <tr>
-                <td>@user.ID</td>
-                <td>@user.EmailRegister</td>
-                <td>@user.NivelPermissao</td>
-                <td>@Html.ActionLink("Ver/editar PEDIDOS", "Orders", "Admin", new { id = user.ID }, new { @class = "btn btn-primary", target = "_blank" })</td>
-                <td>@Html.ActionLink("Logar", "Logar", "Admin", new { id = user.ID, email = user.EmailRegister }, new { @class = "btn btn-primary", target = "_blank" })</td>
-            </tr>
+        <tr>
+            <td>@user.ID</td>
+            <td>@user.EmailRegister</td>
+            <td>@user.NivelPermissao</td>
+            <td>@Html.ActionLink("Ver/editar PEDIDOS", "Orders", "Admin", new { id = user.ID }, new { @class = "btn btn-primary", target = "_blank" })</td>
+            @*<td>@Html.ActionLink("Logar", "Logar", "Admin", new { id = user.ID, email = user.EmailRegister }, new { @class = "btn btn-primary", target = "_blank" })</td>*@
+        </tr>
         }
     </tbody>
 </table>

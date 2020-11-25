@@ -35,7 +35,7 @@
                 {
             <div style="width:100%; border: 1px solid #000; margin-bottom:20px;" class="form-box">
                 <p><strong>Número do pedido</strong> @order.id_pedido </p>
-                @if (order.OrderStatus == OrderStatus.Aguarando_aprovacao)
+                @if (order.OrderStatus == OrderStatus.aguardando_aprovacao)
                 {
 
                     <p style="color:orangered">Pedido aguardando aprovação de orçamento</p>
