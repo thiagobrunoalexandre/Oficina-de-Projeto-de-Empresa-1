@@ -31,6 +31,7 @@ namespace Alge.Controllers
         [CredentialsFilter(Order = 1)]
         public IActionResult Index()
         {
+
             if (CartCookieController.ReturnCartProductsCount() > 0)
             {
                
@@ -49,8 +50,8 @@ namespace Alge.Controllers
                 double valorTotal = cart.CartTotalAmount;
                 int user = AlgeCookieController.UserID;
 
-                int pedidoID = new UsersQuery(db).RegisterPedido(valorTotal, user);
-
+                int pedidoID = new UsersQuery(db).RegisterCart(user);
+                
 
                 inserirItems(pedidoID.ToString());
 

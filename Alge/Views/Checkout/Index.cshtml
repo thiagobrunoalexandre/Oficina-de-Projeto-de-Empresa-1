@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Confirmação de Compra";
-    Cart cart = CartCookieController.ReturnCart();
+    List<Cart> car = (List<Cart>)ViewBag.cart;
     CartCookieController.RefreshCartAmounts();
 
 
@@ -26,10 +26,10 @@
                         <table class="table">
                             <tr>
 
-                                <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;">Personalização:</th>
+                                <th class="col-xs-2 col-md-8 form-group">personalização:</th>
 
-                                <th class="col-xs-2 col-md-2 form-group">Quantidade</th>
-                                <th class="col-xs-2 col-md-2 form-group">Preço</th>
+                                <th class="col-xs-2 col-md-2 form-group">quantidade</th>
+                                <th class="col-xs-2 col-md-2 form-group">preço</th>
                             </tr>
                             @for (int i = 0; i < cart.Product.Count; i++)
                             {
@@ -41,7 +41,7 @@
                                         <img src="@cart.Product[i].produtoCartFormat.Imagem" runat="server" style="max-width:100px; max-height:80px" />
 
                                         <a target="_blank" href=@Url.Action("Image", "Home", new { description = cart.Product[i].ProductID })></a>
-                                        <p>Cod: @cart.Product[i].ProductID</p>
+                                       
 
 
                                     </td>

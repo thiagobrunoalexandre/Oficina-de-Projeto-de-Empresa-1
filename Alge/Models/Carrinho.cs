@@ -17,7 +17,7 @@ namespace Alge.Models
         public String nome_produto { get; set; }
      
         public String descricao_produto { get; set; }
-        public string valor_produto  { get; set; }
+        public double valor_produto  { get; set; }
 
         public String texto_personalizado { get; set; }
         public int quantidade_produto { get; set; }

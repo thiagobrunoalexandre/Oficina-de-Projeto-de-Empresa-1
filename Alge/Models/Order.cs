@@ -31,6 +31,15 @@ namespace Alge.Models.Order
             return Orders;
         }
 
+        public Order GetCardUser(int userID)
+        {
+
+
+            Order Orders = new OrdersQuery().ReturnOrderCart(userID);
+
+            return Orders;
+        }
+
 
 
     }

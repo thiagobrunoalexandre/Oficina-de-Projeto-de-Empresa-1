@@ -68,7 +68,55 @@ namespace Alge.DAO.Query
                 db.conexao.Close();
             }
 
+        } 
+        public Order ReturnOrderCart(int UserID)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = String.Format("SELECT * FROM pedido where fk_usuario = {0} and fk_status = {1};", UserID , "5");//carrinho
+            try
+            {
+                db.conexao.Open();
+                using (MySqlDataReader reader = comm.ExecuteReader())
+                {
+                    Order order = new Order();
+
+                    while (reader.Read())
+                    {
+
+
+                        try
+                        {
+                            order = new Order()
+                            {
+                                id_pedido = reader.GetInt32("id_pedido"),
+                                data_pedido = reader.GetDateTime("data_pedido"),
+                                fk_usuario = reader.GetInt32("fk_usuario"),
+                          
+                                OrderStatus = (OrderStatus)Enum.Parse(typeof(OrderStatus), reader.GetString("fk_status"))
+
+                            };
+                        }
+                        catch (Exception e)
+                        {
+                        }
+
+                    };
+                    return order;
+                };
+            }
+            catch(Exception e)
+            {
+
+                return null;
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+
         }
+
+
         public List<ItensPedido> ReturnItensPedido(int PedidoID)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);
@@ -109,6 +157,33 @@ namespace Alge.DAO.Query
             {
 
                 return null;
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+
+        } 
+        public int ReturnItensCard(int PedidoID)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = String.Format("SELECT count(*) FROM itens_pedido where FK_PEDIDO = {0} ", PedidoID);
+            try
+            {
+                db.conexao.Open();
+                using (MySqlDataReader reader = comm.ExecuteReader())
+                {
+
+
+                    reader.Read();
+
+                    return reader.GetInt32(0); 
+                };
+            }
+            catch
+            {
+
+                return 0;
             }
             finally
             {

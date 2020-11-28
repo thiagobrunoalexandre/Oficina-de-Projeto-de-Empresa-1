@@ -13,6 +13,7 @@ using System.Linq;
 using System.Web;
 using Alge.Models.Produto;
 using Microsoft.AspNetCore.Mvc;
+using Alge.Models.Order;
 
 namespace Alge
 {
@@ -28,9 +29,11 @@ namespace Alge
 
         public static bool AddCartItem(Produto produto,double preco,int quantidade,string imagem , string texto)//CARRINHO 
         {
-           
-            Cart cart = ReturnCart() != null ? ReturnCart() : new Cart();
-            if (!ReturnCart().Product.Exists(p => p.produtoCartFormat.ProdutoID == produto.id_produto.ToString() && p.produtoCartFormat.Texto == texto ))
+
+          
+
+            Cart cart = ReturnCart();
+            if (!cart.Product.Exists(p => p.produtoCartFormat.ProdutoID == produto.id_produto.ToString() && p.produtoCartFormat.Texto == texto ))
             {
 
                 cart.Product.Add(new Product(produto, preco , quantidade, imagem,texto));
@@ -71,7 +74,23 @@ namespace Alge
         {
             return ReturnCart().Product.Count;
         }
+        public static int GetItensCart()
+        {
+            int userid = AlgeCookieController.UserID;
+            if (userid == 0)
+            {
+                return 0;
+                
+            }
+            else
+            {
+                Order order = new Order().GetCardUser(userid);
 
+                int itens = new OrdersQuery().ReturnItensCard(order.id_pedido);
+                return itens;
+            }
+           
+        }
     }
 
     public class Cart

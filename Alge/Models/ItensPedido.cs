@@ -21,16 +21,16 @@ namespace Alge.Models.ItensPedido
         public String imagem { get; set; }
 
 
-        public List<ItensPedido> GetItensPedido(int produtoID)
+        public List<ItensPedido> GetItensPedido(int pedido)
         {
 
 
-            List<ItensPedido> itens = new OrdersQuery().ReturnItensPedido(produtoID);
+            List<ItensPedido> itens = new OrdersQuery().ReturnItensPedido(pedido);
             
             return itens;
         }
 
-
+       
     }
 
 

@@ -194,25 +194,65 @@ namespace Alge.Controllers
         }
 
         [HttpPost]
+        [CredentialsFilter(Order = 1)]
         public IActionResult Detalhe(Carrinho model, int Id)
         {
             Produto produto = new Produto();
             produto.texto_personalizado = model.texto_personalizado;
             produto.id_produto = Id;
             var itens = new UsersQuery().ReturnProdutos(Id);
-           
+            List<string> columns = new List<string>();
+            List<string> values = new List<string>();
 
-            if (CartCookieController.AddCartItem(produto, itens.preco ,  model.quantidade_produto ,itens.imagem,model.texto_personalizado ))
+
+
+            ListHelper.AddKey(ref columns, ref values, "fk_usuario", AlgeCookieController.UserID.ToString());
+            ListHelper.AddKey(ref columns, ref values, "fk_status", "5");//5 carrinho
+
+            bool retorno = new DMLQuery(new CallDB()).ExistData("pedido", columns, values);
+
+            if (retorno == false)
             {
-                return RedirectToAction("Produto", "Home", new { idCarrinho = produto.id_produto });
+                int user = AlgeCookieController.UserID;
+                using (CallDB db = new CallDB())
+                {
+                    int pedidoID = new UsersQuery(db).RegisterCart(user);
+
+                    inserirItems(model,pedidoID.ToString(),itens.preco,itens.id_produto);
+                   
+                }
+                return RedirectToAction("Produto", "Home", new { idCarrinho = "" });
             }
             else
             {
-                
+              
+                Order order = new Order().GetCardUser(AlgeCookieController.UserID);
+
+                inserirItems(model, order.id_pedido.ToString(), itens.preco, itens.id_produto);
+
                 return RedirectToAction("Produto", "Home", new { idCarrinho = "" });
             }
+           
         }
-        public ActionResult Produto(string  idCarrinho = "")
+        private void inserirItems(Carrinho model , string pedidoID ,double preco,int idproduto)
+        {
+            List<string> columns = new List<string>();
+            List<string> values = new List<string>();
+
+            ListHelper.AddKey(ref columns, ref values, "FK_PRODUTO", idproduto.ToString());
+            ListHelper.AddKey(ref columns, ref values, "FK_PEDIDO", pedidoID.ToString());
+            ListHelper.AddKey(ref columns, ref values, "texto_personalizado", model.texto_personalizado);
+            ListHelper.AddKey(ref columns, ref values, "quantidade", model.quantidade_produto.ToString());
+            ListHelper.AddKey(ref columns, ref values, "preco_produto_unidade", preco.ToString().Replace(',','.'));
+
+            using (CallDB db = new CallDB())
+            {
+                bool insert = db.InsertData("itens_pedido", columns, values);
+
+            }
+
+        }
+            public ActionResult Produto(string  idCarrinho = "")
         {
             
             ViewBag.carrinho = idCarrinho;

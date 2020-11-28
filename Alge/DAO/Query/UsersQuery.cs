@@ -27,9 +27,9 @@ namespace Alge.DAO.Query
 
         public int RegisterUser(RegisterModel model)
         {
-            string fk_usuario = "1";
+            int usuario_admin = 0;
             MySqlCommand comm = new MySqlCommand("", db.conexao);
-            comm.CommandText = String.Format("INSERT INTO usuario(nome ,email,password_hash, DataInsercao , telefone ,fk_usuario_tipo ) VALUES('{0}', '{1}', '{2}','{3}','{4}','{5}'); SELECT LAST_INSERT_ID() as ID",model.Name , model.Email, model.Register_PasswordHash, DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), model.MobilePhone , fk_usuario);// 1 usuario comum
+            comm.CommandText = String.Format("INSERT INTO usuario(nome ,email,password_hash, DataInsercao , telefone ,usuario_admin ) VALUES('{0}', '{1}', '{2}','{3}','{4}','{5}'); SELECT LAST_INSERT_ID() as ID", model.Name , model.Email, model.Register_PasswordHash, DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), model.MobilePhone , usuario_admin);// 0 usuario comum
 
             try
             {
@@ -52,7 +52,7 @@ namespace Alge.DAO.Query
         {
             string preco = model.preco.ToString();
             MySqlCommand comm = new MySqlCommand("", db.conexao);
-            comm.CommandText = String.Format("INSERT INTO produto(nome ,quantidade,preco, descricao , fk_categoria ,imagem_url ) VALUES('{0}', '{1}', '{2}','{3}','{4}','{5}'); SELECT LAST_INSERT_ID() as ID", model.nome, "1" ,preco.Replace(",","."), model.descricao,"1", caminhoImg);
+            comm.CommandText = String.Format("INSERT INTO produto(nome ,preco, descricao  ,imagem_url ) VALUES('{0}', '{1}', '{2}','{3}'); SELECT LAST_INSERT_ID() as ID", model.nome ,preco.Replace(",","."), model.descricao, caminhoImg);
 
             try
             {
@@ -71,10 +71,32 @@ namespace Alge.DAO.Query
                 db.conexao.Close();
             }
         }
-        public int RegisterPedido(double valorTotal,int user)
+        public int RegisterPedido(int user)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);
-            comm.CommandText = String.Format("INSERT INTO pedido(data_pedido ,fk_usuario,valor_total, fk_status ) VALUES('{0}', '{1}', '{2}','{3}'); SELECT LAST_INSERT_ID() as ID",  DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), user,valorTotal.ToString().Replace(',', '.'),1);// 1 staus 1 aguardando aprovação
+            comm.CommandText = String.Format("INSERT INTO pedido(data_pedido ,fk_usuario, fk_status ) VALUES('{0}', '{1}', '{2}'); SELECT LAST_INSERT_ID() as ID",  DateTime.UtcNow.ToString("yyyy-MM-dd H:mm:ss"), user,1);// 1 staus 1 aguardando aprovação
+
+            try
+            {
+                db.conexao.Open();
+                MySqlDataReader reader = comm.ExecuteReader();
+                reader.Read();
+                return reader.GetInt32("ID");
+
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+        }
+        public int RegisterCart(int user)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = String.Format("INSERT INTO pedido(data_pedido ,fk_usuario, fk_status ) VALUES('{0}', '{1}', '{2}'); SELECT LAST_INSERT_ID() as ID", DateTime.UtcNow.ToString("yyyy-MM-dd H:mm:ss"), user, 5);// 5 carrinho
 
             try
             {
@@ -196,7 +218,7 @@ namespace Alge.DAO.Query
                     {
                         ID = reader.GetInt32("id_usuario"),
                         EmailRegister = reader.GetString("email"),
-                        NivelPermissao = reader.GetString("fk_usuario_tipo")
+                        NivelPermissao = reader.GetString("usuario_admin")
                     });
                 }
                 return usersList;
@@ -239,13 +261,13 @@ namespace Alge.DAO.Query
             }
         }
 
-        public void UpdateDadosFaturamento(RegisterModel model, int ID_usuario)
+        public void UpdateDadosFaturamento(RegisterModel model, int id_usuario)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);
-            comm.CommandText = "UPDATE usuario_fatuamento set endereco = @endereco, numero_endereco = @numero_endereco ,complemento_endereco = @complemento_endereco  ,cidade  = @cidade ,estado = @estado , cep = @cep , cpf = @cpf WHERE fk_usuario = @fk_usuario";
+            comm.CommandText = "UPDATE usuario set endereco = @endereco, numero_endereco = @numero_endereco ,complemento_endereco = @complemento_endereco  ,cidade  = @cidade ,estado = @estado , cep = @cep , cpf = @cpf WHERE id_usuario = @id_usuario";
 
 
-            comm.Parameters.AddWithValue("@fk_usuario", ID_usuario);
+            comm.Parameters.AddWithValue("@id_usuario", id_usuario);
             comm.Parameters.AddWithValue("@endereco", model.endereco); 
             comm.Parameters.AddWithValue("@numero_endereco", model.numero_endereco);
             comm.Parameters.AddWithValue("@complemento_endereco", model.complemento);
@@ -269,29 +291,7 @@ namespace Alge.DAO.Query
                 db.conexao.Close();
             }
         }
-        public void inserirFaturamento(RegisterModel model, int ID_usuario)
-        {
-
-           
-
-                List<string> columns = new List<string>();
-                List<string> values = new List<string>();
-
-                ListHelper.AddKey(ref columns, ref values, "fk_usuario", ID_usuario.ToString());
-                ListHelper.AddKey(ref columns, ref values, "endereco", model.endereco);
-                ListHelper.AddKey(ref columns, ref values, "numero_endereco", model.numero_endereco);
-                ListHelper.AddKey(ref columns, ref values, "complemento_endereco", model.complemento);
-                ListHelper.AddKey(ref columns, ref values, "cidade",model.cidade);
-                ListHelper.AddKey(ref columns, ref values, "estado", model.estado); 
-                ListHelper.AddKey(ref columns, ref values, "cep", model.cep);
-                ListHelper.AddKey(ref columns, ref values, "cpf", model.cpf.ToString());
-
-                CallDB db = new CallDB(DBSource.Alge_db);
-                db.InsertData("usuario_fatuamento", columns, values);
-
-               
-            
-        }
+        
         public List<Produto> ReturnProdutos()
         {
            
@@ -313,10 +313,10 @@ namespace Alge.DAO.Query
                                 {
                                     id_produto = reader.GetInt32("idProduto"),
                                     nome = reader.GetString("nome"),
-                                    quantidade = reader.GetInt32("quantidade"),
+                                 
                                     descricao = reader.GetString("descricao"),
                                     preco = reader.GetDouble("preco"),
-                                    categoria = reader.GetInt32("fk_categoria"),
+                                
                                     imagem = reader.GetString("imagem_url"),
                                 });
                             }
@@ -362,10 +362,10 @@ namespace Alge.DAO.Query
                             {
                                 id_produto = reader.GetInt32("idProduto"),
                                 nome = reader.GetString("nome"),
-                                quantidade = reader.GetInt32("quantidade"),
+                           
                                 descricao = reader.GetString("descricao"),
                                 preco = reader.GetDouble("preco"),
-                                categoria = reader.GetInt32("fk_categoria"),
+                            
                                 imagem = reader.GetString("imagem_url"),
                             });
                         }
@@ -449,10 +449,10 @@ namespace Alge.DAO.Query
                         {
                             id_produto = reader.GetInt32("idProduto"),
                             nome = reader.GetString("nome"),
-                            quantidade = reader.GetInt32("quantidade"),
+                          
                             descricao = reader.GetString("descricao"),
                             preco = reader.GetDouble("preco"),
-                            categoria = reader.GetInt32("fk_categoria"),
+                         
                             imagem = reader.GetString("imagem_url"),
                         };
                     }
@@ -507,7 +507,7 @@ namespace Alge.DAO.Query
         public RegisterModel GetFaturamento(int userID)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);
-            comm.CommandText = ("SELECT * FROM usuario_fatuamento WHERE fk_usuario = @id ;");
+            comm.CommandText = ("SELECT * FROM usuario WHERE id_usuario = @id ;");
             comm.Parameters.AddWithValue("@id", userID);
 
             try

@@ -11,6 +11,8 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Alge.Models.ItensPedido;
+using Alge.Models.Order;
 
 namespace Alge.Procedures
 {
@@ -97,8 +99,7 @@ namespace Alge.Procedures
         public static RegisterModel RegisterFaturamento(RegisterModel model,int userID) 
         {
            
-            if (FaturamentoExist(userID))
-            {
+           
 
                 using (CallDB db = new CallDB())
                 {
@@ -110,20 +111,8 @@ namespace Alge.Procedures
                 }
 
 
-            }
-            else
-            {
-
-                using (CallDB db = new CallDB())
-                {
-                    
-                    new UsersQuery().inserirFaturamento(model, userID);
-
-                   
-                   
-                }
-
-            }
+           
+            
             var Dados = GetDadosFaturamento(AlgeCookieController.UserID);
             return Dados;
         }
@@ -138,6 +127,7 @@ namespace Alge.Procedures
 
             return retorno;
         }
+        
         public static RegisterModel GetDadosFaturamento(int userID)
         {
 
