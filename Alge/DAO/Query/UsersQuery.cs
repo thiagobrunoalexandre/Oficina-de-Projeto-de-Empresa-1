@@ -166,6 +166,32 @@ namespace Alge.DAO.Query
                 db.conexao.Close();
             }
         } 
+        public void UpdatePedido(int idPedido)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = "UPDATE pedido set fk_status = @fk_status, data_pedido = @data_pedido WHERE id_pedido = @id_pedido";
+
+           comm.Parameters.AddWithValue("@fk_status", "1");//Aguardando aprovação de orçamento
+           comm.Parameters.AddWithValue("@data_pedido", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+           comm.Parameters.AddWithValue("@id_pedido", idPedido);
+          
+
+          
+
+            try
+            {
+                db.conexao.Open();
+
+                comm.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+        } 
         public void UpdateProduto2(Produto model,int ID)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);
@@ -437,11 +463,12 @@ namespace Alge.DAO.Query
             comm.CommandText = String.Format("SELECT * FROM produto WHERE idProduto = {0};", id);
             try
             {
-               
                 
-                  
 
-                    db.conexao.Open();
+
+
+
+                db.conexao.Open();
                     using (MySqlDataReader reader = comm.ExecuteReader())
                     {
                         reader.Read();

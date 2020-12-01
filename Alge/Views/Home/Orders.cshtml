@@ -53,7 +53,7 @@
                     <p style="color:green">Pedido concluido</p>
                 }
                 <p>Data do pedido  @order.data_pedido</p>
-                <p>Valor total do pedido @String.Format("R$ {0:N2}", @order.valor_total)</p>
+             
 
                 <p>@Html.ActionLink("Ver itens do pedido", "ItensPedido", "Home", new { id = @order.id_pedido }, new { target = "_blank" })</p>
             </div>

@@ -55,12 +55,9 @@ namespace Alge
             AppHttpContext.Current.Session.SetString(CART_KEY, JsonConvert.SerializeObject(cart));
             RefreshCartAmounts();
         }
-        public static void RemoveCartItem(string ProductCartUniqueID)
+        public static void RemoveCartItem(int id)
         {
-            Cart cart = ReturnCart();
-            cart.Product.RemoveAll(i => i.ProductCartUniqueKey == ProductCartUniqueID);
-            AppHttpContext.Current.Session.SetString(CART_KEY, JsonConvert.SerializeObject(cart));
-            RefreshCartAmounts();
+            int itens = new Carrinho().DeletarIntemCarrinho(id);
         }
         public static void RefreshCartAmounts()
         {

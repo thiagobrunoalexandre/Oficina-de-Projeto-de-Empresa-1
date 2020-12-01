@@ -253,7 +253,7 @@ namespace Alge.Controllers
 
                     if (new UsersQuery().Login(_userModel.EmailLogin, passwordHashed))
                     {
-                        var nivel = new DMLQuery().GetData("fk_usuario_tipo", "usuario", "email", _userModel.EmailLogin);
+                        var nivel = new DMLQuery().GetData("usuario_admin", "usuario", "email", _userModel.EmailLogin);
 
                         if (Convert.ToInt32(nivel) >= 2)
                         { //SE O NIVEL >= 1 O USUARIO TEM PERMISSÃO PARA ACESSAR O INDEX

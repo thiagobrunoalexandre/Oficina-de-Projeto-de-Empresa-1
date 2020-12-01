@@ -20,6 +20,8 @@ using Alge.Models.Checkout;
 using Alge.Procedures;
 using static CallDB;
 using Alge.DAO.Query;
+using Alge.Models;
+using Alge.Models.Order;
 
 namespace Alge.Controllers
 {
@@ -32,30 +34,45 @@ namespace Alge.Controllers
         public IActionResult Index()
         {
 
-            if (CartCookieController.ReturnCartProductsCount() > 0)
+            Order order = new Order().GetCardUser(AlgeCookieController.UserID);
+         
+            List<Carrinho> itens = new Carrinho().GetCarrinho(order.id_pedido);
+
+
+
+
+            double total = 0;
+
+            foreach (var item in itens)
             {
-               
+
+                total += item.quantidade_produto * item.valor_produto;
+
             }
-            return View(new CheckoutModel { });
+
+            ViewBag.total = total;
+            ViewBag.carrinho = itens;
+            return View();
+
+
+          
         }
 
         [HttpPost]
         public ActionResult Index(CheckoutModel model)
         {
-            Cart cart = CartCookieController.ReturnCart();
-            CartCookieController.RefreshCartAmounts();
+           
             using (CallDB db = new CallDB())
             {
 
-                double valorTotal = cart.CartTotalAmount;
-                int user = AlgeCookieController.UserID;
 
-                int pedidoID = new UsersQuery(db).RegisterCart(user);
+
+                Order order = new Order().GetCardUser(AlgeCookieController.UserID);
+                new Carrinho().Update(order.id_pedido);
+
+              
+
                 
-
-                inserirItems(pedidoID.ToString());
-
-                CartCookieController.ClearCartItens();
             }
             
             

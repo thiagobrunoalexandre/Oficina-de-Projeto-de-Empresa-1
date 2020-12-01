@@ -48,7 +48,7 @@
                             <p>preço unitario  @String.Format("R$ {0:N2}", @item.precoProduto)</p>
                             <p>personalização: @item.texto_personalizado</p>
                             <p>quantidade @item.quantidade</p>
-                            <p>Total @String.Format("R$ {0:N2}", @item.valor)</p>
+                            <p>Total @String.Format("R$ {0:N2}", @item.quantidade * @item.precoProduto)</p>
 
 
                         </div>

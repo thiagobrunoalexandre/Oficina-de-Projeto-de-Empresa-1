@@ -2,119 +2,119 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Confirmação de Compra";
-    List<Cart> car = (List<Cart>)ViewBag.cart;
-    CartCookieController.RefreshCartAmounts();
+    List<Carrinho> itens = (List<Carrinho>)ViewBag.carrinho;
+   
 
 
 }
 @using Alge;
 @using Alge.DAO.Query;
 @using (Html.BeginForm("Index", "Checkout", FormMethod.Post, new { @id = "validate-form" }))
-{
-    <div class="container">
+    {
+        <div class="container">
 
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-12" style="padding: 3% 0"><h4 class="global-text-title"><i class="fa fa-shopping-cart" style="color:#bd053b; font-size:1.3em; margin-right:1%;" aria-hidden="true"></i>Confirme seu pedido</h4></div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12" style="padding: 3% 0"><h4 class="global-text-title"><i class="fa fa-shopping-cart" style="color:#bd053b; font-size:1.3em; margin-right:1%;" aria-hidden="true"></i>Confirme seu pedido</h4></div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-row">
-                <div class="form-group col-sm-8">
-                    <div class="col-md-6">
+            <div class="col-md-12">
+                <div class="form-row">
+                    <div class="form-group col-sm-8">
+                        <div class="col-md-6">
+
+                            <table class="table">
+                                <tr>
+
+                                    <th class="col-xs-2 col-md-8 form-group">personalização:</th>
+
+                                    <th class="col-xs-2 col-md-2 form-group">quantidade</th>
+                                    <th class="col-xs-2 col-md-2 form-group">preço</th>
+                                </tr>
+                                @foreach (Carrinho item in itens)
+                                {
+
+
+                                    <tr>
+                                        <td class="thumb-checkout-style" style="white-space:normal; padding-bottom:0px;">
+                                            <p>@item.texto_personalizado</p>
+                                            <img src="@item.imagemProduto" runat="server" style="max-width:100px; max-height:80px" />
+
+                                            <a target="_blank" href=@Url.Action("Image", "Home", new { description = item.Id_produto })></a>
+
+
+
+                                        </td>
+
+
+                                        <td>
+                                            @item.quantidade_produto
+
+                                        </td>
+
+                                        <td>
+                                            @String.Format("R$ {0:N2}", item.valor_produto * item.quantidade_produto)
+                                            <a href="@Url.Action("RemoverCartItem", "Home", new { id = item.idItem })">Remover item</a>
+                                        </td>
+                                    </tr>
+                                  
+
+                                }
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
 
                         <table class="table">
+
                             <tr>
 
-                                <th class="col-xs-2 col-md-8 form-group">personalização:</th>
 
-                                <th class="col-xs-2 col-md-2 form-group">quantidade</th>
-                                <th class="col-xs-2 col-md-2 form-group">preço</th>
+
+                                <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;">Valor total do seu pedido</th>
                             </tr>
-                            @for (int i = 0; i < cart.Product.Count; i++)
-                            {
+                            <tr>
+                                <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;"></th>
+                                <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;"></th>
 
+                                <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;">@String.Format("R$ {0:N2}", @ViewBag.total )</th>
 
-                                <tr>
-                                    <td class="thumb-checkout-style" style="white-space:normal; padding-bottom:0px;">
-                                        <p>@cart.Product[i].produtoCartFormat.Texto</p>
-                                        <img src="@cart.Product[i].produtoCartFormat.Imagem" runat="server" style="max-width:100px; max-height:80px" />
+                            </tr>
 
-                                        <a target="_blank" href=@Url.Action("Image", "Home", new { description = cart.Product[i].ProductID })></a>
-                                       
-
-
-                                    </td>
-
-
-                                    <td>
-                                        @cart.Product[i].produtoCartFormat.Quantidade
-
-                                    </td>
-
-                                    <td>
-                                        @String.Format("R$ {0:N2}", cart.Product[i].produtoCartFormat.Price)
-                                        <a href="@Url.Action("RemoverCartItem", "Home", new { id = cart.Product[i].ProductCartUniqueKey })">Remover item</a>
-                                    </td>
-                                </tr>
-
-
-                            }
                         </table>
-                        
+
+
+
+
+
+
+                        @if (itens.Count() >= 1)
+                        {
+                            <div class="col-md-5">
+                                <input type="submit" style="float:left" value="Confirmar pedido" class="btn btn-lg btn-success">
+                            </div>
+
+                        }
+
+
+
                     </div>
-                </div>
-                <div class="form-group col-sm-4">
-
-                    <table class="table">
-
-                        <tr>
-
-
-
-                            <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;">Valor total do seu pedido</th>
-                        </tr>
-                        <tr>
-                            <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;"></th>
-                            <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;"></th>
-
-                            <th class="col-xs-2 col-md-8 form-group" style="padding: 8px 0;">@String.Format("R$ {0:N2}", cart.CartTotalAmount)</th>
-
-                        </tr>
-
-                    </table>
-
-
-
-
-
-
-                    @if (cart.Product.Count() >= 1)
-                    {
-                        <div class="col-md-5">
-                            <input type="submit" style="float:left" value="Confirmar pedido" class="btn btn-lg btn-success">
-                        </div>
-
-                    }
-
-
 
                 </div>
+
+
+
+
+
+
+
+
+
 
             </div>
 
 
-
-
-
-
-
-
-
-
         </div>
 
-
-    </div>
-    
-   }
+       }

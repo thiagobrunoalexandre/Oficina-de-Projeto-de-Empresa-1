@@ -12,7 +12,8 @@ namespace Alge.Models
     public class Carrinho
     {
         //ID
-       
+
+        public int idItem { get; set; }
         public int Id_produto { get; set; }
         public String nome_produto { get; set; }
      
@@ -20,12 +21,39 @@ namespace Alge.Models
         public double valor_produto  { get; set; }
 
         public String texto_personalizado { get; set; }
+        public String imagemProduto { get; set; }
         public int quantidade_produto { get; set; }
-       
 
 
-       
 
+        public List<Carrinho> GetCarrinho(int pedido)
+        {
+
+
+            List<Carrinho> itens = new OrdersQuery().ReturnIntensCarrinho(pedido);
+
+            return itens;
+        }
+
+        public int DeletarIntemCarrinho(int Iditem)
+        {
+
+
+            int  delete = new OrdersQuery().DeleteIntenCarrinho(Iditem);
+
+            return delete;
+        }
+        public void Update(int id)
+        {
+            using (CallDB db = new CallDB())
+            {
+
+                new UsersQuery(db).UpdatePedido(id);
+
+
+
+            }
+        }
     }
 
     

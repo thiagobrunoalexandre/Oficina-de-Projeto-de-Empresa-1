@@ -94,7 +94,7 @@ namespace Alge.Controllers
 
         }
         [CredentialsFilter(Order = 1)]
-        public IActionResult RemoverCartItem(string id)
+        public IActionResult RemoverCartItem(int id)
         {
             CartCookieController.RemoveCartItem(id);
             return RedirectToAction("Index", "Checkout");
@@ -129,6 +129,9 @@ namespace Alge.Controllers
             
             List<Order> orders = new Order().GetAllUserOrders(AlgeCookieController.UserID);
 
+           
+
+
             ViewBag.orders = orders;
         
 
@@ -138,6 +141,8 @@ namespace Alge.Controllers
         public ActionResult ItensPedido(int id)
         {
             List<ItensPedido> itens = new ItensPedido().GetItensPedido(id);
+
+
             ViewBag.pedido = id;
             ViewBag.itensPedido = itens;
             return View();
@@ -187,6 +192,7 @@ namespace Alge.Controllers
 
         }
         [HttpGet("/Home/Detalhe/{Id}")]
+        [CredentialsFilter(Order = 1)]
         public IActionResult Detalhe(int Id)
         {
             ViewBag.produtos = new UsersQuery().ReturnProdutosDetalhe(Id);
@@ -252,6 +258,7 @@ namespace Alge.Controllers
             }
 
         }
+
             public ActionResult Produto(string  idCarrinho = "")
         {
             

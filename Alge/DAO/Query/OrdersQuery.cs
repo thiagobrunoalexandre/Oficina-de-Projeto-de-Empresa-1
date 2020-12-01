@@ -1,4 +1,5 @@
 ﻿
+using Alge.Models;
 using Alge.Models.ItensPedido;
 using Alge.Models.Order;
 using MySql.Data.MySqlClient;
@@ -27,7 +28,7 @@ namespace Alge.DAO.Query
         public List<Order> ReturnOrders(int UserID)
         {
             MySqlCommand comm = new MySqlCommand("", db.conexao);
-            comm.CommandText = String.Format("SELECT * FROM pedido where fk_usuario = {0} Order by id_pedido desc ;", UserID);
+            comm.CommandText = String.Format("SELECT * FROM pedido where fk_usuario = {0} and fk_status <> 5 Order by id_pedido desc ;", UserID);
             try
             {
                 db.conexao.Open();
@@ -45,7 +46,6 @@ namespace Alge.DAO.Query
                                 id_pedido = reader.GetInt32("id_pedido"),
                                 data_pedido = reader.GetDateTime("data_pedido"),
                                 fk_usuario = reader.GetInt32("fk_usuario"),
-                                valor_total = reader.GetDouble("valor_total"),
                                 OrderStatus  = (OrderStatus)Enum.Parse(typeof(OrderStatus), reader.GetString("fk_status"))
 
                             });
@@ -140,7 +140,7 @@ namespace Alge.DAO.Query
                                 FK_PEDIDO = reader.GetInt32("FK_PEDIDO"),
                                 texto_personalizado = reader.GetString("texto_personalizado"),
                                 quantidade =  reader.GetInt32("quantidade"),
-                                valor = reader.GetDouble("valor_total_itens"),
+                               
                                 precoProduto = reader.GetDouble("preco_produto_unidade"),
 
                             });
@@ -157,6 +157,75 @@ namespace Alge.DAO.Query
             {
 
                 return null;
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+
+        }
+        public List<Carrinho> ReturnIntensCarrinho(int PedidoID)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = String.Format("SELECT * FROM itens_pedido where FK_PEDIDO = {0} Order by ID desc ;", PedidoID);
+            try
+            {
+                db.conexao.Open();
+                using (MySqlDataReader reader = comm.ExecuteReader())
+                {
+                    List<Carrinho> orders = new List<Carrinho>();
+
+
+                    while (reader.Read())
+                    {
+                        try
+                        {
+                            orders.Add(new Carrinho()
+                            {
+                                idItem = reader.GetInt32("ID"),
+                                Id_produto = reader.GetInt32("FK_PRODUTO"),
+                                texto_personalizado = reader.GetString("texto_personalizado"),
+                                quantidade_produto =  reader.GetInt32("quantidade"),
+                                valor_produto = reader.GetDouble("preco_produto_unidade"),
+                             
+
+                            });
+                        }
+                        catch (Exception e)
+                        {
+                        }
+                    };
+
+                    return orders;
+                };
+            }
+            catch
+            {
+
+                return null;
+            }
+            finally
+            {
+                db.conexao.Close();
+            }
+
+        } 
+        public int DeleteIntenCarrinho(int itemID)
+        {
+            MySqlCommand comm = new MySqlCommand("", db.conexao);
+            comm.CommandText = String.Format("Delete from itens_pedido where ID = @itemID;");
+            comm.Parameters.AddWithValue("@itemID", itemID);
+
+            try
+            {
+                db.conexao.Open();
+                comm.ExecuteNonQuery();
+                return 1;
+            }
+            catch
+            {
+
+                return 0;
             }
             finally
             {
