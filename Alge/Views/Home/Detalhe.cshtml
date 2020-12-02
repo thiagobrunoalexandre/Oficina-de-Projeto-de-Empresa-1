@@ -19,58 +19,60 @@
 
 
                 @foreach (Produto produto in Produtos)
-                {
-                <div class="form-group col-sm-8"> 
                     @using (Html.BeginForm())
                     {
-
-                        <p class="form-text-view">Personalize seu produto</p>
-                        @Html.Label("Quantidade")
-                        @Html.TextBoxFor(model => model.quantidade_produto, new { @class = "form-control", placeholder = "Quantidade", @id="qtd", maxlength = "11"  })
-                        @Html.ValidationMessageFor(model => model.quantidade_produto)
-                        <br />
-                        @Html.Label("Texto personalizado")
-                        @Html.TextAreaFor(model => model.texto_personalizado, new { @class = "form-control", placeholder = "Texto", })
-                        @Html.ValidationMessageFor(model => model.texto_personalizado)
+                        {<form action="" class="form-group col-sm-6" method="post" enctype="multipart/form-data">
+                               
 
 
+                                    <p class="form-text-view">Personalize seu produto</p>
+                                    @Html.Label("Quantidade")
+                                    <input type="number" class="form-control" min="1"  name="quantidade" />
+
+                                    <br />
+                                    @Html.Label("Texto personalizado")
+                                    @Html.TextAreaFor(model => model.texto_personalizado, new { @class = "form-control", placeholder = "Texto", })
+                                    @Html.ValidationMessageFor(model => model.texto_personalizado)
 
 
-                        <p style="font-size:30px; color:red">@ViewBag.Message</p>
-                        <p>
-                            <input style="max-width:300px;" type="submit" name="@produto.id_produto" value="Adicionar no carrinho" class="form-control btn-outline-info" />
-                        </p>
+
+
+                                    <p style="font-size:30px; color:red">@ViewBag.Message</p>
+                                    <p>
+                                        <input style="max-width:300px;" type="submit" name="@produto.id_produto" value="Adicionar no carrinho" class="form-control btn-outline-info" />
+                                    </p>
+
+
+
+                                
+                            </form>
+                        }
+                        <div class="form-group col-sm-4">
+
+
+
+                            <h5 class="card-title">@produto.nome</h5>
+                            <div class="card-body">
+
+                                <img src="@produto.imagem" runat="server" style="max-width:200px; max-height:120px" />
+
+
+
+
+                                <p>@produto.descricao</p>
+                                <p>@String.Format("R$ {0:N2}", @produto.preco)</p>
+
+
+
+
+                            </div>
+
+
+
+                        </div>
 
 
                     }
-                    </div>
-
-                <div class="form-group col-sm-4">
-
-
-
-                    <h5 class="card-title">@produto.nome</h5>
-                    <div class="card-body">
-
-                        <img src="@produto.imagem" runat="server" style="max-width:200px; max-height:120px" />
-
-
-
-                      
-                        <p>@produto.descricao</p>
-                        <p>@String.Format("R$ {0:N2}", @produto.preco)</p>
-                        
-
-
-
-                    </div>
-
-
-
-                </div>
-
-
-            }
 
 
 

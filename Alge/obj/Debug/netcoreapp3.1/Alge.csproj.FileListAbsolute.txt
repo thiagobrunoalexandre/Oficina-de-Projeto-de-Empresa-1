@@ -541,4 +541,3 @@ C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\bin\Debug\netcoreapp3.1\runtimes\win
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.csproj.CoreCompileInputs.cache
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.MvcApplicationPartsAssemblyInfo.cache
 C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CadastrarProduto.cshtml.g.cs
-C:\git\Oficina-de-Projeto-de-Empresa-1\Alge\obj\Debug\netcoreapp3.1\Alge.csprojAssemblyReference.cache

@@ -44,7 +44,7 @@
                         <br />
 
                         @Html.Label("Preço")
-                        @Html.TextBoxFor(model => model.preco, new { @class = "form-control", placeholder = "Preço", @id = "pre", maxlength = "10" })
+                        @Html.TextBoxFor(model => model.preco, new { @class = "form-control", placeholder = "Preço", @id = "pre", maxlength = "10" , type = "number"  })
                         @Html.ValidationMessageFor(model => model.preco)
                         <br />
 

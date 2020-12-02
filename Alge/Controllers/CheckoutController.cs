@@ -62,6 +62,8 @@ namespace Alge.Controllers
         public ActionResult Index(CheckoutModel model)
         {
            
+
+
             using (CallDB db = new CallDB())
             {
 

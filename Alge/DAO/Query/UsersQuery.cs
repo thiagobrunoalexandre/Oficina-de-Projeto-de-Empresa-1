@@ -52,7 +52,7 @@ namespace Alge.DAO.Query
         {
             string preco = model.preco.ToString();
             MySqlCommand comm = new MySqlCommand("", db.conexao);
-            comm.CommandText = String.Format("INSERT INTO produto(nome ,preco, descricao  ,imagem_url ) VALUES('{0}', '{1}', '{2}','{3}'); SELECT LAST_INSERT_ID() as ID", model.nome ,preco.Replace(",","."), model.descricao, caminhoImg);
+            comm.CommandText = String.Format("INSERT INTO produto(nome ,preco, descricao  ,imagem_url ) VALUES('{0}', '{1}', '{2}','{3}'); SELECT LAST_INSERT_ID() as ID", model.nome ,model.preco, model.descricao, caminhoImg);
 
             try
             {

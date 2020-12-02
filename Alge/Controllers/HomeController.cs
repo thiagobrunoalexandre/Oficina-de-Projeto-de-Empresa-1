@@ -201,46 +201,50 @@ namespace Alge.Controllers
 
         [HttpPost]
         [CredentialsFilter(Order = 1)]
-        public IActionResult Detalhe(Carrinho model, int Id)
+        public IActionResult Detalhe(Carrinho model, int Id, int quantidade)
         {
-            Produto produto = new Produto();
-            produto.texto_personalizado = model.texto_personalizado;
-            produto.id_produto = Id;
-            var itens = new UsersQuery().ReturnProdutos(Id);
-            List<string> columns = new List<string>();
-            List<string> values = new List<string>();
+
+          
+            
+                Produto produto = new Produto();
+                produto.texto_personalizado = model.texto_personalizado;
+                produto.id_produto = Id;
+                var itens = new UsersQuery().ReturnProdutos(Id);
+                List<string> columns = new List<string>();
+                List<string> values = new List<string>();
 
 
 
-            ListHelper.AddKey(ref columns, ref values, "fk_usuario", AlgeCookieController.UserID.ToString());
-            ListHelper.AddKey(ref columns, ref values, "fk_status", "5");//5 carrinho
+                ListHelper.AddKey(ref columns, ref values, "fk_usuario", AlgeCookieController.UserID.ToString());
+                ListHelper.AddKey(ref columns, ref values, "fk_status", "5");//5 carrinho
 
-            bool retorno = new DMLQuery(new CallDB()).ExistData("pedido", columns, values);
+                bool retorno = new DMLQuery(new CallDB()).ExistData("pedido", columns, values);
 
-            if (retorno == false)
-            {
-                int user = AlgeCookieController.UserID;
-                using (CallDB db = new CallDB())
+                if (retorno == false)
                 {
-                    int pedidoID = new UsersQuery(db).RegisterCart(user);
+                    int user = AlgeCookieController.UserID;
+                    using (CallDB db = new CallDB())
+                    {
+                        int pedidoID = new UsersQuery(db).RegisterCart(user);
 
-                    inserirItems(model,pedidoID.ToString(),itens.preco,itens.id_produto);
-                   
+                        inserirItems(model,quantidade, pedidoID.ToString(), itens.preco, itens.id_produto);
+
+                    }
+                    return RedirectToAction("Produto", "Home", new { idCarrinho = "" });
                 }
-                return RedirectToAction("Produto", "Home", new { idCarrinho = "" });
-            }
-            else
-            {
-              
-                Order order = new Order().GetCardUser(AlgeCookieController.UserID);
+                else
+                {
 
-                inserirItems(model, order.id_pedido.ToString(), itens.preco, itens.id_produto);
+                    Order order = new Order().GetCardUser(AlgeCookieController.UserID);
 
-                return RedirectToAction("Produto", "Home", new { idCarrinho = "" });
-            }
+                    inserirItems(model,quantidade, order.id_pedido.ToString(), itens.preco, itens.id_produto);
+
+                    return RedirectToAction("Produto", "Home", new { idCarrinho = "" });
+                }
+            
            
         }
-        private void inserirItems(Carrinho model , string pedidoID ,double preco,int idproduto)
+        private void inserirItems(Carrinho model , int quantidade,  string pedidoID ,double preco,int idproduto)
         {
             List<string> columns = new List<string>();
             List<string> values = new List<string>();
@@ -248,7 +252,7 @@ namespace Alge.Controllers
             ListHelper.AddKey(ref columns, ref values, "FK_PRODUTO", idproduto.ToString());
             ListHelper.AddKey(ref columns, ref values, "FK_PEDIDO", pedidoID.ToString());
             ListHelper.AddKey(ref columns, ref values, "texto_personalizado", model.texto_personalizado);
-            ListHelper.AddKey(ref columns, ref values, "quantidade", model.quantidade_produto.ToString());
+            ListHelper.AddKey(ref columns, ref values, "quantidade", quantidade.ToString());
             ListHelper.AddKey(ref columns, ref values, "preco_produto_unidade", preco.ToString().Replace(',','.'));
 
             using (CallDB db = new CallDB())

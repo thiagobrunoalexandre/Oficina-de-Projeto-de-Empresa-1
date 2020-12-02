@@ -176,17 +176,21 @@ namespace Alge.Controllers
 
         [AdminCredentialsFilter(Order = 1)]
         [HttpPost]
-        public IActionResult CadastrarProduto(Produto model, IList<IFormFile> Image)
+        public IActionResult CadastrarProduto(Produto model, IList<IFormFile> Image )
         {
 
 
-
+            if(model.preco <= 0)
+            {
+                ViewBag.ErrorMessage = "Digite o valor maior que 0";
+                return View(model);
+            }
             if (Image.Count >= 1)
             {
                 foreach (IFormFile file in Image)
                 {
 
-
+               
                     string imageFileName = file.FileName;
                     string produtospasta = Path.Combine(_env.WebRootPath, "image", "produtos");
                     string imageFilePath = Path.Combine(produtospasta, imageFileName);
@@ -205,8 +209,9 @@ namespace Alge.Controllers
             }
             else
             {
+                ViewBag.ErrorMessage = "Selecione uma imagem";
+                return View(model);
 
-             
             }
 
 
